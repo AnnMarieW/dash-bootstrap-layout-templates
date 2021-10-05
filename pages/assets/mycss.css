@@ -1,0 +1,13 @@
+/*--------------------------------------------
+ * DataTable
+ * /
+/* fixes margins so data isn't cut off at table edges */
+.dash-table-container .row {
+    display : block !important;
+    margin: 0;
+}
+
+/* fixes  when the table dropdown doesn't drop down */
+.Select-menu-outer {
+    display: block !important;
+}
