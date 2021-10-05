@@ -70,7 +70,7 @@ def make_datatable(dff, id=id):
         style_data_conditional=[
             {
                 "if": {"state": "active"},
-                "border": "1px solid var(--primary)",
+                "border": "1px solid var(--bs-primary)",
                 "opacity": 0.75,
             },
             {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
