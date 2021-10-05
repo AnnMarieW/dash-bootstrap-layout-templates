@@ -37,7 +37,7 @@ library. This functionality can be added to any Dash app with 2 lines of code!
 
 In the `assets` folder you will find  `dbc.css` that defines two classes to help style Dash Core Components and the 
 Dash DataTable to make them more compatible with Bootstrap light and dark themes.  Simply add `className="dbc-light"` or
-`className=dbc-dark` to the outer container of your app. 
+`className="dbc-dark"` to the outer container of your app. 
 
 ## Installation
 
@@ -50,7 +50,7 @@ for a test drive!  Feedback and/or pull requests are welcome.  Please feel free 
 After cloning this repo:
 - Run `demo_app.py` to see the code and the app for each of the 14 examples in the docs. This app is also  a handy
 cheatsheet for the new templates!
-- In the theme_switcher folder, you will find two apps that demo the new ThemeChangerAIO component. Try running both!
+- Run the `theme-switch1.py` and/or `theme-switch2.py` to demo the new ThemeChangerAIO component.
 
 
 ## Documentation
