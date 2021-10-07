@@ -411,3 +411,12 @@ dbc-dark .Select-menu-outer {
 .dbc-light .nav-item {
     margin-right: 0 !important;
  }
+ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
+
+ .mycss .dash-spreadsheet td {
+    background-color: var(--bs-dark) ;
+    color: var(--bs-light) ;
+}
