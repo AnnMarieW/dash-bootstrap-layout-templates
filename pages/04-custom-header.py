@@ -31,7 +31,9 @@ app.layout = tpl.layout(
 
         """
         # Hello Dash Templates!        
-        *** This app has a custom header.***
+        *** This app has a custom header.***  
+        
+        Make this the default header by adding it to the config file.
         """,
     ],
     title=None,

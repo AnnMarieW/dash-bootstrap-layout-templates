@@ -1,4 +1,3 @@
-
 #
 from dash import html, dcc
 import dash_bootstrap_components as dbc
@@ -9,7 +8,7 @@ def make_markdown(content):
     if isinstance(content, list):
         return [dcc.Markdown(c) if isinstance(c, str) else c for c in content]
     else:
-        return dcc.Markdown(content) if isinstance(content,str) else content
+        return dcc.Markdown(content) if isinstance(content, str) else content
 
 
 def make_header(title):
@@ -19,7 +18,7 @@ def make_header(title):
 
 
 def labeled(component, label):
-    return html.Div([dbc.Label(dcc.Markdown(label)), component, ], className="mb-2")
+    return html.Div([dbc.Label(dcc.Markdown(label)), component,], className="mb-2")
 
 
 def make_labeled_components(content):
@@ -50,11 +49,12 @@ def card(content, header=None, footer=None, className=None):
 
 def make_rows(content):
     """ makes a single or multi column dbc.Row from a list of components"""
+    # to-do check if content of the col is a string and wrap with markdown?
     content = make_markdown(content)
     row = []
     for c in content:
         if isinstance(c, (dbc.Col, list)):
-            row.append(dbc.Row(c, className="mb-2"))
+            row.append(dbc.Row(make_markdown(c), className="mb-2"))
         elif isinstance(c, dbc.Row):
             row.append(c)
         else:
@@ -64,7 +64,10 @@ def make_rows(content):
 
 def layout(content, title="Layout Templates Demo", className=None, id=""):
     return dbc.Container(
-        [make_header(title)] + make_rows(content), fluid=True, className=className, id=id
+        [make_header(title)] + make_rows(content),
+        fluid=True,
+        className=className,
+        id=id,
     )
 
 
@@ -72,6 +75,5 @@ def tab(content, label=None, tab_id="", className=""):
     return dbc.Tab(
         dbc.Card(make_rows(content), body=True, className="mt-3 " + className),
         label=label,
-        tab_id=tab_id
+        tab_id=tab_id,
     )
-

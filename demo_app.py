@@ -6,6 +6,7 @@ from dash import Dash, dcc, html, Input, Output, State, no_update, callback_cont
 import dash_bootstrap_components as dbc
 import layout_templates.layout as tpl
 
+
 def preprocess(source):
     # source = source.replace(
     #     '\nif __name__ == "__main__":\n    app.run_server(debug=True)',
@@ -36,7 +37,6 @@ app = Dash(
 pages = sorted([p.replace(".py", "") for p in os.listdir("./pages") if ".py" in p])
 modules = {p: import_module(f"pages.{p}") for p in pages}
 apps = {p: m.app for p, m in modules.items()}
-print(apps)
 source_codes = {p: preprocess(getsource(m)) for p, m in modules.items()}
 
 app_page = {app: page + 1 for page, app in enumerate(apps)}
@@ -54,18 +54,39 @@ app_pagination = dbc.Pagination(
     max_value=len(apps),
     fully_expanded=False,
     previous_next=True,
+    active_page=1,
 )
 
-card = tpl.card([
-    (app_dropdown, "Please select an app"),
-    (app_pagination, "Or for a tutorial, step through the apps in sequence"),
-], header= "Welcome to the Dash Layout Templates Demo", className='m-4')
+card = tpl.card(
+    [
+        (app_dropdown, "Please select an app"),
+        (app_pagination, "Or for a tutorial, step through the apps in sequence"),
+    ],
+    header="Welcome to the Dash Layout Templates Demo",
+    className="m-2",
+)
 
 
-landing_page = tpl.layout([
-    [dbc.Col(card, width=12, lg=4)],
-    html.Iframe(id="iframe", className=("vw-100 vh-100"))
-], title=None)
+landing_page = tpl.layout(
+    [
+        [dbc.Col(card, width=12, lg=5)],
+        html.Iframe(id="iframe", className=("vw-100 vh-100")),
+    ],
+    title=None,
+)
+
+
+def make_demo(code, demo_app):
+    return tpl.layout(
+        [
+            [
+                dbc.Col(code, width=12, lg=5, className="border"),
+                dbc.Col(demo_app, width=12, lg=7, className="border"),
+            ]
+        ],
+        title=None,
+    )
+
 
 app.layout = html.Div([dcc.Location(id="url", refresh=False), html.Div(id="display"),])
 
@@ -91,45 +112,24 @@ def display_content(pathname):
     if "/" in pathname:
         selected = pathname.split("/")[-1]
         if selected in apps:
-            return dbc.Container(
-                [
-                    dbc.Row(
-                        [
-                            dbc.Col(
-                                dcc.Markdown(
-                                    f"```python\n{source_codes[selected]}\n```"
-                                ),
-                                width=12,
-                                lg=5,
-                                className="border",
-                            ),
-                            dbc.Col(
-                                apps[selected].layout,
-                                width=12,
-                                lg=7,
-                                className="border",
-                            ),
-                        ]
-                    )
-                ],
-                fluid=True,
-            )
+            code = dcc.Markdown(f"```python\n{source_codes[selected]}\n```")
+            demo_app = apps[selected].layout
+            return make_demo(code, demo_app)
     return landing_page
 
+
 @app.callback(
-    Output("app-choice","value"),
+    Output("app-choice", "value"),
     Output("pages", "active_page"),
-    Input("app-choice","value"),
+    Input("app-choice", "value"),
     Input("pages", "active_page"),
 )
 def sync(app, page):
     ctx = callback_context
     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
     page = app_page[app] if trigger_id == "app-choice" else page
-    app = page_app[page] if trigger_id == 'pages' else app
+    app = page_app[page] if trigger_id == "pages" else app
     return app, page
-
-
 
 
 if __name__ == "__main__":
