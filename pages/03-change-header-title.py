@@ -9,9 +9,10 @@ app.layout = tpl.layout(
     [
         """
         # Hello Dash Templates!
-        *** Make your first app in less than 5 minutes! ***
+        *** This app has a new title.  ***
         """
-    ]
+    ],
+    title="This Is My New App Title",
 )
 
 if __name__ == "__main__":

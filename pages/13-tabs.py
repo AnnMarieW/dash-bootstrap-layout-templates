@@ -16,9 +16,9 @@ table = dash_table.DataTable(
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
-tab1 = tpl.tab([""" ## This is my Graph """, dcc.Graph(figure=fig)], label="Graph")
+tab1 = tpl.tab([" ## This is my Graph ", dcc.Graph(figure=fig)], label="Graph")
 tab2 = tpl.tab([table], label="Table")
-tab3 = tpl.tab(["More App info"], label="More Info")
+tab3 = tpl.tab("More Info", label="More Info")
 
 app.layout = tpl.layout(
     [

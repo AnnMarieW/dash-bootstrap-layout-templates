@@ -7,11 +7,12 @@ or dark themed apps.
 
 
 ## Layout Templates Design Goals    
-   - Simplify app development
+
    - Reduce the learning curve for new users
-   - Build apps with standard layouts faster
-   - Integrate templates seamlessly with a fully customizable Dash App
-   - No changes to callbacks
+   - Build simple apps with standard layouts fast and with less code
+   - Ability to use templates in a regular Dash app
+   - Seamlessly transition to a regular Dash app.
+   - No changes to Dash callbacks
    
 
 ## Layout Templates

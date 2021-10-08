@@ -2,9 +2,9 @@ from importlib import import_module
 from inspect import getsource
 import os
 
-from dash import Dash, dcc, html, Input, Output, State, no_update
+from dash import Dash, dcc, html, Input, Output, State, no_update, callback_context
 import dash_bootstrap_components as dbc
-
+import layout_templates.layout as tpl
 
 def preprocess(source):
     # source = source.replace(
@@ -36,35 +36,36 @@ app = Dash(
 pages = sorted([p.replace(".py", "") for p in os.listdir("./pages") if ".py" in p])
 modules = {p: import_module(f"pages.{p}") for p in pages}
 apps = {p: m.app for p, m in modules.items()}
+print(apps)
 source_codes = {p: preprocess(getsource(m)) for p, m in modules.items()}
 
+app_page = {app: page + 1 for page, app in enumerate(apps)}
+page_app = {page + 1: app for page, app in enumerate(apps)}
 
-landing_page = [
-    dbc.Container(
-        [
-            dbc.Row(
-                dbc.Col(
-                    [
-                        html.H5(
-                            "Dash Bootstrap Layout Templates Demo.  Please select an app:"
-                        ),
-                        dcc.Dropdown(
-                            id="app-choice",
-                            placeholder="Please select an app...",
-                            options=[{"label": x, "value": x} for x in apps],
-                            value=list(apps.keys())[0],
-                        ),
-                    ],
-                    width=12,
-                    lg=5,
-                ),
-                className="mb-4",
-            ),
-            dbc.Row(dbc.Col(html.Iframe(id="iframe", className=("vw-100 vh-100")),)),
-        ],
-        fluid=True,
-    ),
-]
+app_dropdown = dcc.Dropdown(
+    id="app-choice",
+    placeholder="Please select an app...",
+    options=[{"label": x, "value": x} for x in apps],
+    value=list(apps.keys())[0],
+)
+
+app_pagination = dbc.Pagination(
+    id="pages",
+    max_value=len(apps),
+    fully_expanded=False,
+    previous_next=True,
+)
+
+card = tpl.card([
+    (app_dropdown, "Please select an app"),
+    (app_pagination, "Or for a tutorial, step through the apps in sequence"),
+], header= "Welcome to the Dash Layout Templates Demo", className='m-4')
+
+
+landing_page = tpl.layout([
+    [dbc.Col(card, width=12, lg=4)],
+    html.Iframe(id="iframe", className=("vw-100 vh-100"))
+], title=None)
 
 app.layout = html.Div([dcc.Location(id="url", refresh=False), html.Div(id="display"),])
 
@@ -114,6 +115,21 @@ def display_content(pathname):
                 fluid=True,
             )
     return landing_page
+
+@app.callback(
+    Output("app-choice","value"),
+    Output("pages", "active_page"),
+    Input("app-choice","value"),
+    Input("pages", "active_page"),
+)
+def sync(app, page):
+    ctx = callback_context
+    trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
+    page = app_page[app] if trigger_id == "app-choice" else page
+    app = page_app[page] if trigger_id == 'pages' else app
+    return app, page
+
+
 
 
 if __name__ == "__main__":

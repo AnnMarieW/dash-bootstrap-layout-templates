@@ -9,10 +9,11 @@ app.layout = tpl.layout(
     [
         """
         # Hello Dash Templates!
-        *** This app has a new title.  ***
+        *** Make your first app in less than 2 minutes! ***  
+        
+        You can use Markdown with any text string
         """
-    ],
-    title="This Is My App Title",
+    ]
 )
 
 if __name__ == "__main__":

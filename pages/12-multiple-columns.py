@@ -23,7 +23,7 @@ app.layout = tpl.layout(
         *** Use a list to make multiple columns ***
         """,
 
-        [(gauge, 4), (gauge, 4), (gauge, 4)],
+        [dbc.Col(gauge, width=4), dbc.Col(gauge, width=4), dbc.Col(gauge, width=4)],
         graph
 
     ],

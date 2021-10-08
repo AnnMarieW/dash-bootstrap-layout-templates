@@ -1,4 +1,4 @@
-from dash import Dash, dcc, html
+from dash import Dash, dcc
 import plotly.express as px
 import dash_bootstrap_components as dbc
 import layout_templates.layout as tpl
@@ -8,19 +8,15 @@ fig = px.scatter(df, x="total_bill", y="tip", opacity=0.65, trendline="ols")
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
-controls = tpl.card(
-    [(dcc.Dropdown(), "My dropdown"), (dcc.Slider(), "My Slider")],
-    title=html.H6("My control panel"),
-    # footer="My footer"
-)
-
 app.layout = tpl.layout(
     [
         """
         # Hello Dash Templates!
-        *** App with a side panel ***
+        *** Two graphs side by side. One of the most popular question on the 
+        Dash Community Forum with >65K views***
         """,
-        [(controls, 4), (dcc.Graph(figure=fig, className="border"), 8)],
+        [dbc.Col(dcc.Graph(figure=fig), width= 6), dbc.Col(dcc.Graph(figure=fig), width=6)],
+        " ### Wow - that was so easy! ##",
     ],
 )
 

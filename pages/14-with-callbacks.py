@@ -9,11 +9,11 @@ df = px.data.gapminder()
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
 # This will be changed to the new shorthand in the next release of Dash
-import layout_templates.util as amw
-slider = amw.make_range_slider(df.year.unique(), id="years")
-checklist = amw.make_checklist(df.continent.unique(), id="continents")
-dropdown = amw.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
-table = amw.make_datatable(df, id="table")
+import layout_templates.util as util
+slider = util.make_range_slider(df.year.unique(), id="years")
+checklist = util.make_checklist(df.continent.unique(), id="continents")
+dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
+table = util.make_datatable(df, id="table")
 
 
 controls = tpl.card(
@@ -24,7 +24,7 @@ controls = tpl.card(
     ],
 )
 
-app.layout = tpl.layout([[(controls, 4), (dcc.Graph(id="line_chart"), 8)]])
+app.layout = tpl.layout([[dbc.Col(controls, width=4), dbc.Col(dcc.Graph(id="line_chart"), width=8)]])
 
 
 @app.callback(
