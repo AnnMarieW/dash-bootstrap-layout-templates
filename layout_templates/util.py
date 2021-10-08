@@ -8,6 +8,31 @@ from dash import html, dcc, dash_table
 import dash_bootstrap_components as dbc
 
 
+navbar = dbc.NavbarSimple(
+    children=[
+         dbc.NavItem(dbc.NavLink("Templates", href="templates")),
+
+        dbc.DropdownMenu(
+            children=[
+                dbc.DropdownMenuItem("More pages", header=True),
+                dbc.DropdownMenuItem("Templates", href="/templates"),
+                dbc.DropdownMenuItem("Theme Switcher", href="/theme_switch"),
+                dbc.DropdownMenuItem("GitHub", href="https://github.com/AnnMarieW/dash-bootstrap-layout-templates"),
+            ],
+            nav=True,
+            in_navbar=True,
+            label="More",
+        ),
+    ],
+    brand="Dash Layout Templates Demo",
+    brand_href="#",
+    color="black",
+    dark=True,
+)
+
+
+
+
 def make_dropdown(option_list, id=id, option_val=0):
     return dcc.Dropdown(
         id=id,
@@ -67,14 +92,23 @@ def make_datatable(dff, id=id):
         filter_action="native",
         sort_action="native",
         style_table={"overflowX": "auto"},
-        style_data_conditional=[
-            {
-                "if": {"state": "active"},
-                "border": "1px solid var(--bs-primary)",
-                "opacity": 0.75,
-            },
-            {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
-        ],
+        # style_data_conditional=[
+        #     {
+        #         "if": {"state": "active"},
+        #         "border": "1px solid var(--bs-primary)",
+        #         "opacity": 0.75,
+        #     },
+        #     {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
+        #     {
+        #         'if': {
+        #             'column_id': 'pop',
+        #         },
+        #         'backgroundColor': 'dodgerblue',
+        #         'color': 'yellow',
+        #         'fontWeight': 1000,
+        #     },
+        #
+        # ],
     )
 
 

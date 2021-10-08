@@ -174,15 +174,14 @@ tabs = dbc.Tabs(
         tpl.tab([table], label="Table"),
         tpl.tab(dcc_sampler, label="dcc components")
     ]
-),
+)
 
-app.layout = tpl.layout([[(controls, 4), (tabs, 8)]], id="layout")
+app.layout = tpl.layout([[(controls, 4), (tabs, 8)]], className="dbc")
 
 
 @app.callback(
     Output("line-chart", "figure"),
     Output("table", "data"),
-    Output("layout", "className"),
     Input("indicator", "value"),
     Input("continents", "value"),
     Input("years", "value"),
@@ -190,10 +189,9 @@ app.layout = tpl.layout([[(controls, 4), (tabs, 8)]], id="layout")
 )
 def update_line_chart(indicator, continents, years, theme):
     if continents == [] or indicator is None:
-        return {}, [], None
+        return {}, []
 
     template = url_dbc_themes[theme].lower()
-    class_name = "dbc-dark" if template in dbc_dark_themes else "dbc-light"
 
     dff = df[df.year.between(years[0], years[1])]
     dff = dff[dff.continent.isin(continents)]
@@ -202,7 +200,7 @@ def update_line_chart(indicator, continents, years, theme):
     fig = px.line(dff, x="year", y=indicator, color="continent", line_group="country", template=template)
     fig.update_layout(margin=dict(l=75, r=20, t=10, b=20))
 
-    return fig, data, class_name
+    return fig, data
 
 
 if __name__ == "__main__":
