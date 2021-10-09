@@ -31,7 +31,6 @@
     border-radius: 4px !important;
 
 }
-
 /* dropdown menu options */
 .dbc .VirtualizedSelectOption {
     background-color: var(--bs-body-bg);
@@ -241,9 +240,7 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 .dbc .nav-item {
     margin-right: 0 !important;
 }
-
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
     border-color: var(--bs-primary);
     background-color: rgba(var(--bs-primary-rgb), 0.5);
-
 }
