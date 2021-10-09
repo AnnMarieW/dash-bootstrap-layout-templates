@@ -125,7 +125,7 @@ theme_sample = tpl.card([html.Div(
         dbc.Button("Dark", color="dark", className="mr-1"),
         dbc.Button("Link", color="link"),
     ]
-)], title="Bootstrap Color Sample")
+)], header="Bootstrap Color Sample")
 
 dcc_sampler = [
     "## This is a Sample of Dash Core Components",
