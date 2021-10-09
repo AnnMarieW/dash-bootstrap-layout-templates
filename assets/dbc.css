@@ -230,17 +230,16 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
     border-color: rgba(100, 100, 100, 0.4);
     color: var(--bs-primary) ;
  }
-
 .dbc .nav-link.active {
     background-color: var(--bs-primary)
     color: white;
     border-color: rgba(100, 100, 100, 0.4);
  }
-
 .dbc .nav-item {
     margin-right: 0 !important;
 }
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
     border-color: var(--bs-primary);
     background-color: rgba(var(--bs-primary-rgb), 0.5);
+
 }
