@@ -6,8 +6,8 @@ import layout_templates.layout as tpl
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
 controls = tpl.card([(dcc.Dropdown(), "My dropdown"), (dcc.Slider(), "My Slider")])
-card2 = tpl.card(["__This card has a header__"],header= " # Card Header")
-card3 = tpl.card(["__This card has a header and footer__"], header=" # Card Header", footer="Card Footer")
+card2 = tpl.card(["__This card has a header__"],header= "Card Header")
+card3 = tpl.card(["__This card has a header and footer__"], header="Card Header", footer="Card Footer")
 
 app.layout = tpl.layout(
     [

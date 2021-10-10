@@ -6,19 +6,18 @@ import dash_bootstrap_components as dbc
 def make_markdown(content):
     """ Wrap text in dcc.Markdown() """
     if isinstance(content, list):
-        return [dcc.Markdown(c) if isinstance(c, str) else c for c in content]
+        return [dcc.Markdown(c, className="mb-0") if isinstance(c, str) else c for c in content]
     else:
-        return dcc.Markdown(content) if isinstance(content, str) else content
+        return dcc.Markdown(content, className="mb-0") if isinstance(content, str) else content
 
 
 def make_header(title):
     """ Default header bar """
-    header = html.H4(title, className="bg-primary rounded text-white p-3")
+    header = html.H4(title, className="bg-primary text-white p-3")
     return header if title else None
 
-
 def labeled(component, label):
-    return html.Div([dbc.Label(dcc.Markdown(label)), component,], className="mb-2")
+    return html.Div([dbc.Label(dcc.Markdown(label, className="mb-0")), component,], className="mb-2")
 
 
 def make_labeled_components(content):
@@ -31,19 +30,19 @@ def make_labeled_components(content):
         if len(c) == 2:
             c, label = c
             if isinstance(label, str):
-                label = dcc.Markdown(label)
+                label = dcc.Markdown(label, className="mb-0")
 
         # wrap string in markdown if component is a string
         if isinstance(c, str):
-            c = dcc.Markdown(c)
+            c = dcc.Markdown(c, className="mb-0")
         row.append(html.Div([label, c], className="mb-4"))
     return row
 
 
 def card(content, header=None, footer=None, className=None):
-    header = dbc.CardHeader(make_markdown([header])) if header else None
+    header = dbc.CardHeader(header) if header else None
     content = make_labeled_components(content)
-    footer = dbc.CardFooter(make_markdown([footer])) if footer else None
+    footer = dbc.CardFooter(footer) if footer else None
     return dbc.Card([header, dbc.CardBody(content), footer], className=className)
 
 
