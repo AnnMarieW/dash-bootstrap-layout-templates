@@ -15,7 +15,7 @@ app.layout = tpl.layout(
         *** Two graphs side by side. One of the most popular question on the 
         Dash Community Forum with >65K views***
         """,
-        [dbc.Col(dcc.Graph(figure=fig), width= 6), dbc.Col(dcc.Graph(figure=fig), width=6)],
+        [dbc.Col(dcc.Graph(figure=fig), width= 12, md=6), dbc.Col(dcc.Graph(figure=fig), width=12, md=6)],
         " ### Wow - that was so easy! ##",
     ],
 )
