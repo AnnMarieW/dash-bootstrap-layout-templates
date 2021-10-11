@@ -131,17 +131,17 @@ class ThemeChangerAIO(html.Div):
 
 # ----------  Slide Deck ------------------------------------------------------
 
-
-class SlideDeckAIO(dbc.Container):
+class SlideDeckAIO(html.Div):
+    # pattern matching callback ids
     class ids:
         pagination = lambda aio_id: {
             "component": "SlideDeckAIO",
             "subcomponent": "pagination",
             "aio_id": aio_id,
         }
-        presentation = lambda aio_id: {
+        content = lambda aio_id: {
             "component": "SlideDeckAIO",
-            "subcomponent": "presentation",
+            "subcomponent": "content",
             "aio_id": aio_id,
         }
         store = lambda aio_id: {
@@ -149,22 +149,39 @@ class SlideDeckAIO(dbc.Container):
             "subcomponent": "store",
             "aio_id": aio_id,
         }
-
     ids = ids
 
+    # define properties of SlideDeckAIO
     def __init__(
         self,
         slide_deck={},
-        title=" ",
         pagination_props={},
-        in_header=True,
+        title=" ",
+        use_template=True,
         aio_id=None,
     ):
         """ todo write docstring
+        SlideDeckAIO is an All-in-One component to display content by page number. It is composed
+        of a parent `html.Div` with a dbc.Pagination ('pagination'), html.Div for the page content (`content`)
+        and a dcc.Store (`store`) for the slide deck dictionary.
+
+        The slide deck page selected with the pagination button will be displayed.
+
+        - slide_deck:  A dictionary with the key as the page number and the page content as the value {page_number: content}
+        - pagination_props:  A dictionary of propertis passed into the dbc.Pagination component. See ...
+
+                         max_pages is set to the number of pages in the `slide_deck`
+        - title - optional content for the SlideDeck template
+        - use_template : If true, then use the default template defined in the SlideDeckAIO will be used to display
+        the slide deck controls. If false, then only the pagination buttons are displayed.
+        - aio_id: The All-in-One component ID used to generate the pagination, content and store component's dictionary IDs.
+
+
         """
+
+        # Set default props
         if aio_id is None:
             aio_id = str(uuid.uuid4())
-
         pagination_props = pagination_props.copy()
         if "fully_expanded" not in pagination_props:
             pagination_props["fully_expanded"] = False
@@ -173,36 +190,45 @@ class SlideDeckAIO(dbc.Container):
         if "active_page" not in pagination_props:
             pagination_props["active_page"] = 1
         if "size" not in pagination_props:
-            pagination_props["size"] = 'sm'
+            pagination_props["size"] = "sm"
 
+        # Define layout components
         pagination_btns = dbc.Pagination(
             id=self.ids.pagination(aio_id),
             max_value=len(slide_deck),
-            ** pagination_props,
+            **pagination_props,
         )
-        if in_header:
-            header_content = dbc.Row(
-                [dbc.Col(title, className='text-white ms-2 h4'), dbc.Col(pagination_btns, width="auto", className="float-end pt-2")],
+        default_template = dbc.Container(
+            [
+                dbc.Row(
+                    [
+                        dbc.Col(title, className="text-white ms-2 h4"),
+                        dbc.Col(
+                            pagination_btns, width="auto", className="float-end pt-2"
+                        ),
+                    ],
+                    align="center",
+                )
+            ],
+            className="bg-primary text-white mb-4",
+            fluid=True,
+        )
+        slide_deck_controls = default_template if use_template else pagination_btns
 
-                align="center"
-            )
-            pagination_btns = dbc.Container(
-                header_content, className="bg-primary text-white mb-4", fluid=True
-            )
-
+        # layout
         super().__init__(
             [
-                html.Div(pagination_btns),
+                html.Div(slide_deck_controls),
                 html.Div(
                     slide_deck[pagination_props["active_page"]],
-                    id=self.ids.presentation(aio_id),
+                    id=self.ids.content(aio_id),
                 ),
                 dcc.Store(id=self.ids.store(aio_id), data=slide_deck),
             ]
         )
 
     @callback(
-        Output(ids.presentation(MATCH), "children"),
+        Output(ids.content(MATCH), "children"),
         Input(ids.pagination(MATCH), "active_page"),
         State(ids.store(MATCH), "data"),
     )
