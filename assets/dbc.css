@@ -73,14 +73,12 @@
  *  input boxes including editable fields in DataTable and the pagination buttons
  */
 .dbc input input.current-page {
-    background-color: var(--bs-body-bg) !important;
-    color: var(--bs-body-color) !important;
+
 }
 
 /* Use this classname for dcc.Input */
 .dbc input {
-    background-color: var(--bs-body-bg) !important;
-    color: var(--bs-body-color) !important;
+
 }
 
 /* ---------------------------------------
@@ -242,4 +240,18 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
     border-color: var(--bs-primary);
     background-color: rgba(var(--bs-primary-rgb), 0.5);
 
+}
+.dbc input::placeholder
+{;
+    color: var(--bs-body-color) !important;
+
+}
+.dash-table-container .previous-next-container .page-number .current-page-container .current-page-shadow
+{
+    background-color: transparent;
+    color: var(--bs-body-color) !important;
+}
+.dash-table-container .previous-next-container .page-number .current-page-container input.current-page
+{
+    background-color: transparent;
 }
