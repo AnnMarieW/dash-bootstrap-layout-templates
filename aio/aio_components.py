@@ -165,13 +165,11 @@ class SlideDeckAIO(html.Div):
         of a parent `html.Div` with a dbc.Pagination ('pagination'), html.Div for the page content (`content`)
         and a dcc.Store (`store`) for the slide deck dictionary.
 
-        The slide deck page selected with the pagination button will be displayed.
+        The pagination buttons control which page is displayed.
 
-        - slide_deck:  A dictionary with the key as the page number and the page content as the value {page_number: content}
-        - pagination_props:  A dictionary of propertis passed into the dbc.Pagination component. See ...
-
-                         max_pages is set to the number of pages in the `slide_deck`
-        - title - optional content for the SlideDeck template
+        - slide_deck:  A dictionary with the key as the page number and the page layout as the value {page_number: page_layout}
+        - pagination_props:  A dictionary of properties passed into the dbc.Pagination component. See [](url)
+        - title - optional text or components for the SlideDeck template
         - use_template : If true, then use the default template defined in the SlideDeckAIO will be used to display
         the slide deck controls. If false, then only the pagination buttons are displayed.
         - aio_id: The All-in-One component ID used to generate the pagination, content and store component's dictionary IDs.
@@ -192,7 +190,7 @@ class SlideDeckAIO(html.Div):
         if "size" not in pagination_props:
             pagination_props["size"] = "sm"
 
-        # Define layout components
+        # components used in the SlideDeckAIO layout
         pagination_btns = dbc.Pagination(
             id=self.ids.pagination(aio_id),
             max_value=len(slide_deck),

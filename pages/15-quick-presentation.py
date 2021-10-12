@@ -12,7 +12,7 @@ app = Dash(
     suppress_callback_exceptions=True,
 )
 
-#----- slide 4 content --------------
+#----- used in slide 4 layout  --------------
 checklist = dbc.Checklist(
     id="slide-checklist",
     options=[{"label": d, "value": d} for d in ["Thur", "Fri", "Sat", "Sun"]],
@@ -30,6 +30,8 @@ slide_content = tpl.layout(
 )
 # --------------------------------
 
+# slide_deck is a dict where the key is page number and the value is the layout for each page.
+# This is passed to the SlideDeckAIO component
 slide_deck = {
     1: tpl.card(
         [
@@ -70,9 +72,10 @@ slide_deck = {
     4: tpl.card([(slide_content, "Here is some data on tips",)]),
 }
 
+# Slide deck navigation is handled in the SlideDeckAIO component
 app.layout = dbc.Container(SlideDeckAIO(slide_deck=slide_deck, title="Interactive Presentation"), fluid=True)
 
-
+# slide 4 callback
 @app.callback(Output("slide-graph", "figure"), Input("slide-checklist", "value"))
 def update_slide(days):
     dff = df[df.day.isin(days)]
