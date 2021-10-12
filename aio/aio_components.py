@@ -157,7 +157,6 @@ class SlideDeckAIO(html.Div):
         slide_deck={},
         pagination_props={},
         title=" ",
-        use_template=True,
         aio_id=None,
     ):
         """ todo write docstring
@@ -170,8 +169,6 @@ class SlideDeckAIO(html.Div):
         - slide_deck:  A dictionary with the key as the page number and the page layout as the value {page_number: page_layout}
         - pagination_props:  A dictionary of properties passed into the dbc.Pagination component. See [](url)
         - title - optional text or components for the SlideDeck template
-        - use_template : If true, then use the default template defined in the SlideDeckAIO will be used to display
-        the slide deck controls. If false, then only the pagination buttons are displayed.
         - aio_id: The All-in-One component ID used to generate the pagination, content and store component's dictionary IDs.
 
 
@@ -196,7 +193,7 @@ class SlideDeckAIO(html.Div):
             max_value=len(slide_deck),
             **pagination_props,
         )
-        default_template = dbc.Container(
+        slide_deck_controls = dbc.Container(
             [
                 dbc.Row(
                     [
@@ -211,13 +208,12 @@ class SlideDeckAIO(html.Div):
             className="bg-primary text-white mb-4",
             fluid=True,
         )
-        slide_deck_controls = default_template if use_template else pagination_btns
 
         # layout
         super().__init__(
             [
                 html.Div(slide_deck_controls),
-                html.Div(
+                html.Div( # slide deck output
                     slide_deck[pagination_props["active_page"]],
                     id=self.ids.content(aio_id),
                 ),
