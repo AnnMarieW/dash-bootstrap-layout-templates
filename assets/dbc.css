@@ -14,34 +14,35 @@
 
 /* input box */
 .dbc .Select-control {
-    background-color: var(--bs-body-bg) !important;
+  background-color: var(--bs-body-bg) !important;
 }
 
 /* changes the text color of input box */
 .dbc .Select-value-label {
-    color: var(--bs-body-color) !important;
+  color: var(--bs-body-color) !important;
 }
 
 .dbc .Select input {
-    color: var(--bs-body-color);
+  color: var(--bs-body-color);
 }
 
-.dbc .Select--single > .Select-control .Select-value, .Select-placeholder {
-    border: 1px solid grey !important;
-    border-radius: 4px !important;
+.dbc .Select--single > .Select-control .Select-value,
+.Select-placeholder {
+  border: 1px solid grey !important;
+  border-radius: 4px !important;
 
 }
 
 /* dropdown menu options */
 .dbc .VirtualizedSelectOption {
-    background-color: var(--bs-body-bg);
-    color: var(--bs-body-color);
- }
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+}
 
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {
-    background-color: var(--bs-body-bg);
-    opacity: .7;
+  background-color: var(--bs-body-bg);
+  opacity: .7;
 }
 
 /* border on focus - default is blue
@@ -49,8 +50,8 @@
  */
 .dbc .is-focused:not(.is-open) > .Select-control {
   border-color: var(--bs-primary) !important;
- /* box-shadow: 0 0 0 0.2rem rgba(223, 105, 26, 0.25); /* lighter primary */
- /* note - dropdowns look better with a box shadow.  If you are not using a theme switcher, making
+  /* box-shadow: 0 0 0 0.2rem rgba(223, 105, 26, 0.25); /* lighter primary */
+  /* note - dropdowns look better with a box shadow.  If you are not using a theme switcher, making
   * the box shadow a lighter shade of the primary color looks nice.  (for now it's removed)
   */
   box-shadow: none !important;
@@ -66,23 +67,17 @@
  * textarea
  */
 .dbc textarea {
-    background-color: var(--bs-body-bg) !important;
-    color: var(--bs-body-color) !important;
+  background-color: var(--bs-body-bg) !important;
+  color: var(--bs-body-color) !important;
 }
 
 /* ----------------------------------------
  *  input boxes including editable fields in DataTable and the pagination buttons
  */
-.dbc input input.current-page {
-    background-color: var(--bs-body-bg) !important;
-    color: var(--bs-body-color) !important;
-}
+.dbc input input.current-page {}
 
 /* Use this classname for dcc.Input */
-.dbc input {
-    background-color: var(--bs-body-bg) !important;
-    color: var(--bs-body-color) !important;
-}
+.dbc input {}
 
 /* ---------------------------------------
  * Datatable
@@ -90,13 +85,13 @@
 
 /* fixes margins so data isn't cut off at table edges */
 .dbc .dash-table-container .row {
-    display : block !important;
-    margin: 0;
+  display: block !important;
+  margin: 0;
 }
 
 /* fixes  when the table dropdown doesn't drop down */
 dbc .Select-menu-outer {
-    display: block !important;
+  display: block !important;
 }
 
 /*
@@ -104,73 +99,76 @@ dbc .Select-menu-outer {
  *  these icons appear when the table is sortable and/or columns are deletable
  */
 .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
-    --accent: var(--bs-primary) !important;
-    --hover: none !important;
+  --accent: var(--bs-primary) !important;
+  --hover: none !important;
 }
 
 .dbc input.dash-filter--case--sensitive {
-    border-color: var(--bs-primary) !important;
-    border-radius: 3px;
-    border-style: solid;
-    border-width: 2px;
-    color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 2px;
+  color: var(--bs-primary) !important;
 }
 
 /* pagination buttons - this removes the default pink hover */
-.dbc .last-page:hover, .previous-page:hover, .first-page:hover, .next-page:hover{
-    color: var(--bs-primary) !important;
+.dbc .last-page:hover,
+.previous-page:hover,
+.first-page:hover,
+.next-page:hover {
+  color: var(--bs-primary) !important;
 }
 
 /* table body */
 .dbc .dash-spreadsheet td {
-    font-family:  var(--bs-font-family-sans-serif);
-    background-color: var(--bs-body-bg)
-    color: var(--bs-body-color)
-    --border: var(--bs-gray);
-    --border-width: .5px;
+  font-family: var(--bs-font-family-sans-serif);
+  background-color: var(--bs-body-bg) color: var(--bs-body-color) --border: var(--bs-gray);
+  --border-width: .5px;
 }
 
 .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
-    font-family:  var(--bs-font-family-sans-serif);
-    background-color: var(--bs-body-bg); !important
-    color: var(--bs-body-color);
-    --accent: var(--bs-primary) !important
-    --border: var(--bs-gray);
+  font-family: var(--bs-font-family-sans-serif);
+  background-color: var(--bs-body-bg);
+   !important color: var(--bs-body-color);
+  --accent: var(--bs-primary) !important --border: var(--bs-gray);
 }
 
 .dbc dash-spreadsheet th {
-            background-color: yellow; !important
-	    }
+  background-color: yellow;
+   !important
+}
 
 /* filter row in the header */
 .dbc .dash-spreadsheet .dash-filter {
-    font-family:  var(--bs-font-family-sans-serif);
-    background-color: var(--bs-body-bg);
-    color: var(--bs-body-color);
-    --border: var(--bs-gray);
+  font-family: var(--bs-font-family-sans-serif);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  --border: var(--bs-gray);
 }
 
 /* tooltips - makes text readable in dark themes */
 .dbc .dash-table-tooltip {
-    color:black
+  color: black
 }
 
 
 /* row hover */
 .dbc.dbc_row_hover .dash-spreadsheet td.dash-cell {
-    border-color: lightgrey !important;
- }
-.dbc.dbc_row_hover .dash-spreadsheet  tr:hover td.dash-cell {
-    border-color: lightgrey !important;
-    border-width: 1.5px !important;
-    background-color: var(--bs-light) !important;
-    color: var(--bs-dark) !important;
+  border-color: lightgrey !important;
+}
+
+.dbc.dbc_row_hover .dash-spreadsheet tr:hover td.dash-cell {
+  border-color: lightgrey !important;
+  border-width: 1.5px !important;
+  background-color: var(--bs-light) !important;
+  color: var(--bs-dark) !important;
 }
 
 
 body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
-    background-color: var(--bs-body-bg);
-    color: var(--bs-body-color);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: #d3d3d3;
 }
 
 
@@ -184,7 +182,8 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 }
 
 .dbc .rc-slider-rail {
-   background-color: #ededed;  /* grey */
+  background-color: #ededed;
+  /* grey */
 }
 
 .dbc .rc-slider-track {
@@ -193,7 +192,8 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 
 .dbc .rc-slider-dot {
   border: 0;
-  background-color: #ededed; /* grey */
+  background-color: #ededed;
+  /* grey */
 }
 
 .dbc .rc-slider-dot.rc-slider-dot-active {
@@ -215,29 +215,46 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 /* ----------------------------------
  * Tabs
 */
-
-
 .dbc .tab-pane .card {
-    border-top-left-radius: 0;
- }
+  border-top-left-radius: 0;
+}
 
 .dbc .nav-tabs {
-    border-bottom-width: 0 !important;
- }
+  border-bottom-width: 0 !important;
+}
 
 .dbc .nav-link {
-    border-width: 0.5px !important;
-    border-color: rgba(100, 100, 100, 0.4);
-    color: var(--bs-primary) ;
- }
+  border-width: 0.5px !important;
+  border-color: rgba(100, 100, 100, 0.4);
+  color: var(--bs-primary);
+}
 
 .dbc .nav-link.active {
-    background-color: var(--bs-primary)
-    color: white;
-    border-color: rgba(100, 100, 100, 0.4);
- }
+  background-color: var(--bs-primary) color: white;
+  border-color: rgba(100, 100, 100, 0.4);
+}
 
 .dbc .nav-item {
-    margin-right: 0 !important;
- }
+  margin-right: 0 !important;
+}
 
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
+  border-color: var(--bs-primary);
+  background-color: rgba(var(--bs-primary-rgb), 0.5);
+
+}
+
+.dbc input::placeholder {
+  ;
+  color: var(--bs-body-color) !important;
+
+}
+
+.dash-table-container .previous-next-container .page-number .current-page-container .current-page-shadow {
+  background-color: transparent;
+  color: var(--bs-body-color) !important;
+}
+
+.dash-table-container .previous-next-container .page-number .current-page-container input.current-page {
+  background-color: transparent;
+}
