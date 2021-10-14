@@ -29,13 +29,13 @@ def prepend_recursive(component, prefix: str) -> None:
 app = Dash(
     __name__,
     suppress_callback_exceptions=True,
-    assets_folder="pages",
+    assets_folder="layout_demo_pages",
     external_stylesheets=[dbc.themes.SPACELAB],
 )
 
 
-pages = sorted([p.replace(".py", "") for p in os.listdir("./pages") if ".py" in p])
-modules = {p: import_module(f"pages.{p}") for p in pages}
+pages = sorted([p.replace(".py", "") for p in os.listdir("layout_demo_pages") if ".py" in p])
+modules = {p: import_module(f"layout_demo_pages.{p}") for p in pages}
 apps = {p: m.app for p, m in modules.items()}
 source_codes = {p: preprocess(getsource(m)) for p, m in modules.items()}
 
@@ -50,7 +50,7 @@ app_dropdown = dcc.Dropdown(
 )
 
 app_pagination = dbc.Pagination(
-    id="pages",
+    id="layout_demo_pages",
     max_value=len(apps),
     fully_expanded=False,
     previous_next=True,
@@ -60,7 +60,7 @@ app_pagination = dbc.Pagination(
 card = tpl.card(
     [
         (app_dropdown, "Please select an app"),
-        (app_pagination, "Or for a tutorial, step through the apps in sequence"),
+        (app_pagination, "Or for a tutorial, step through the multi_page in sequence"),
     ],
     header="Welcome to the Dash Layout Templates Demo",
     className="m-2",
@@ -120,15 +120,15 @@ def display_content(pathname):
 
 @app.callback(
     Output("app-choice", "value"),
-    Output("pages", "active_page"),
+    Output("layout_demo_pages", "active_page"),
     Input("app-choice", "value"),
-    Input("pages", "active_page"),
+    Input("layout_demo_pages", "active_page"),
 )
 def sync(app, page):
     ctx = callback_context
     trigger_id = ctx.triggered[0]["prop_id"].split(".")[0]
     page = app_page[app] if trigger_id == "app-choice" else page
-    app = page_app[page] if trigger_id == "pages" else app
+    app = page_app[page] if trigger_id == "layout_demo_pages" else app
     return app, page
 
 

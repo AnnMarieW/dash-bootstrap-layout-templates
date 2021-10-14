@@ -176,7 +176,9 @@ tabs = dbc.Tabs(
     ]
 )
 
-app.layout = tpl.layout([[(controls, 4), (tabs, 8)]], className="dbc")
+app.layout = tpl.layout([
+    [dbc.Col(controls, width=4), dbc.Col(tabs, width=8)]
+], className="dbc")
 
 
 @app.callback(
@@ -205,6 +207,7 @@ def update_line_chart(indicator, continents, years, theme):
 
 if __name__ == "__main__":
     app.run_server(debug=True)
+
 
 
 

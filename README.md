@@ -49,9 +49,12 @@ for a test drive!  Feedback and/or pull requests are welcome.  Please feel free 
 ## Demo Apps
 
 After cloning this repo:
-- Run `demo_app.py` to see the code and the app for each of the 14 examples in the docs. This app is also  a handy
+
+- __Layout Templates Demo__ : Run `layout_demo.py` to see the code and the app for each of the 15 examples in the docs. This app is also  a handy
 cheatsheet for the new templates!
-- Run the `theme-switch1.py` and/or `theme-switch2.py` to demo the new ThemeChangerAIO component.
+- __Theme Switch Demo__: Run the `theme-switch1.py` and/or `theme-switch2.py` to demo the new ThemeChangerAIO component.
+- __AIO Multi Page App Demo__ : run  `multi_page/index_aio.py`  
+- __AIO Slide Deck Multi Page App Demo__ : run  `slide_deck/slide_deck.py`
 
 
 ## Documentation

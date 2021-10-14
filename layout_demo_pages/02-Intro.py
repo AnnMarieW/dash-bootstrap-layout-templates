@@ -10,7 +10,7 @@ intro = """
 This is a demo of the Dash Bootstrap Layout Templates. Using a template makes it easier and faster to create the most 
 common app layouts.  
 
-The templates use Dash Bootstrap Components under the hood to create responsive mobile-first apps.  Customize the look 
+The templates use Dash Bootstrap Components under the hood to create responsive mobile-first multi_page.  Customize the look 
 of your app by choosing one of the 24 Bootstrap themes.  
 
 You can build an app with the templates --  or you can use them as part of a regular Dash app.  Seamlessly transition 
@@ -26,7 +26,7 @@ The following three layout templates makes it easy to create standard app layout
 control panels on the top, side or bottom  very quickly with less code.  
 
 1. `tpl.layout`: Is a `dbc.Container` with optional header and footer. This is ideal for the main app.layout.
-It also provides  a shorthand syntax for adding rows and columns using the Bootstrap grid system to create responsive apps.
+It also provides  a shorthand syntax for adding rows and columns using the Bootstrap grid system to create responsive multi_page.
 
 2. `tpl.card`: Is a dbc.Card with optional header and footer.  It includes a shorthand for adding labeled components to a card
 which is ideal for creating an app control panel.  It's also a convenient container for any app content.

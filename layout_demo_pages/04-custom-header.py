@@ -10,7 +10,7 @@ navbar = dbc.NavbarSimple(
         dbc.NavItem(dbc.NavLink("Page 1", href="#")),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("More pages", header=True),
+                dbc.DropdownMenuItem("More layout_demo_pages", header=True),
                 dbc.DropdownMenuItem("Page 2", href="#"),
                 dbc.DropdownMenuItem("Page 3", href="#"),
             ],

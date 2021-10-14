@@ -14,7 +14,7 @@ navbar = dbc.NavbarSimple(
 
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("More pages", header=True),
+                dbc.DropdownMenuItem("More layout_demo_pages", header=True),
                 dbc.DropdownMenuItem("Templates", href="/templates"),
                 dbc.DropdownMenuItem("Theme Switcher", href="/theme_switch"),
                 dbc.DropdownMenuItem("GitHub", href="https://github.com/AnnMarieW/dash-bootstrap-layout-templates"),
