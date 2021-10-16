@@ -25,7 +25,8 @@ def make_labeled_components(content):
     """ to-do: Allow columns.  This currently puts everything in rows (no columns, no lists)"""
     row = []
     for c in content:
-        label = None
+
+        label = " "
         # handle label  if given
         if len(c) == 2:
             c, label = c
@@ -41,7 +42,7 @@ def make_labeled_components(content):
 
 def card(content, header=None, footer=None, className=None):
     header = dbc.CardHeader(header) if header else None
-    content = make_labeled_components(content)
+    content = make_labeled_components(content) if content else None
     footer = dbc.CardFooter(footer) if footer else None
     return dbc.Card([header, dbc.CardBody(content), footer], className=className)
 

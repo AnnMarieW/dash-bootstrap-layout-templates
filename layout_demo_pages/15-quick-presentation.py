@@ -41,13 +41,13 @@ slide_deck = {
             -----------
             Use Dash templates to quickly make an interactive slide deck. This entire app has about 70 lines of code!
             """
-        ], className='vh-100 vw-100'
+        ],
     ),
     2: tpl.card([
         (
             dcc.Graph(figure=px.bar(df, x="day", y="total_bill")),
             "Maybe we should close on the weekend?  Thursday was higher than normal but still doesn't cover overhead",
-        )], className='vh-100 vw-100'
+        )],
     ),
     5: tpl.card([
         (

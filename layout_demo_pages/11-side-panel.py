@@ -15,11 +15,7 @@ controls = tpl.card(
 
 app.layout = tpl.layout(
     [
-        """
-        # Hello Dash Templates!
-        *** App with a side panel ***
-        """,
-        [dbc.Col(controls, width=4), dbc.Col(dcc.Graph(figure=fig, className="border"), width=8)],
+        [dbc.Col(controls, width=4), dbc.Col(tpl.card([dcc.Graph(figure=fig)]), width=8)],
     ],
 )
 

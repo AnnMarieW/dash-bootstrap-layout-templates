@@ -77,11 +77,17 @@ landing_page = tpl.layout(
 
 
 def make_demo(code, demo_app):
+    code = tpl.card(
+        [
+            # todo handle no label - shouldn't need to include blank string
+            (html.Div(code, className="overflow-auto"), " ")
+        ]
+    )
     return tpl.layout(
         [
             [
-                dbc.Col(code, width=12, lg=5, className="border"),
-                dbc.Col(demo_app, width=12, lg=7, className="border"),
+                dbc.Col(code, width=12, lg=5),
+                dbc.Col(demo_app, width=12, lg=7),
             ]
         ],
         title=None,
@@ -133,4 +139,4 @@ def sync(app, page):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=True)
+    app.run_server(debug=False)

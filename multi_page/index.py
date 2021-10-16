@@ -1,7 +1,16 @@
-from dash import dcc, html, Input, Output
-from app import app
-from apps import app1, app2
 
+
+import dash_bootstrap_components.themes as themes
+from dash import Dash, dcc, html, Input, Output
+from pages import page1, page2
+
+
+app = Dash(__name__,
+                suppress_callback_exceptions=True,
+                external_stylesheets=[themes.BOOTSTRAP]
+                )
+
+server = app.server
 
 app.layout = html.Div([
     dcc.Location(id='url', refresh=False),
@@ -12,12 +21,14 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),
               Input('url', 'pathname'))
 def display_page(pathname):
-    if pathname == '/apps/app1':
-        return app1.layout
-    elif pathname == '/apps/app2':
-        return app2.layout
+    if pathname == '/pages/page1':
+        return page1.layout
+    elif pathname == '/pages/page2':
+        return page2.layout
+    elif pathname == '/':
+        return page1.layout
     else:
-        return app1.layout
+        "404"
 
 if __name__ == '__main__':
     app.run_server(debug=True)

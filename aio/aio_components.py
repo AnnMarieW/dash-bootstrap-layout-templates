@@ -2,6 +2,7 @@
 from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
 import dash_bootstrap_components as dbc
 import uuid
+import importlib
 
 dbc_themes_url = {
     item: getattr(dbc.themes, item)
@@ -227,63 +228,3 @@ class SlideDeckAIO(html.Div):
     def show_page(active_page, sl_deck):
         return sl_deck[str(active_page)]
 
-
-
-# ----------  Multi Page App Index  ------------------------------------------------------
-
-class MultiPageAIO(html.Div):
-    # pattern matching callback ids
-    class ids:
-        location = lambda aio_id: {
-            "component": "MuliPageAIO",
-            "subcomponent": "location",
-            "aio_id": aio_id,
-        }
-        page_content = lambda aio_id: {
-            "component": "MuliPageAIO",
-            "subcomponent": "page_content",
-            "aio_id": aio_id,
-        }
-        store = lambda aio_id: {
-            "component": "MulitPageAIO",
-            "subcomponent": "store",
-            "aio_id": aio_id,
-        }
-    ids = ids
-
-    # define properties of SlideDeckAIO
-    def __init__(
-        self,
-        layouts={},
-        aio_id=None,
-    ):
-        """
-        MultiPageAIO is an All-in-One component to display page content for a multi page app It is composed
-        of a parent `html.Div` with a dcc.Location ('location'), html.Div for the page content (`page_content`)
-        and a dcc.Store (`store`) for the url to layout dictionary.
-
-        - layouts:  A dictionary where the key is the url and the value is the app layout for that page {url: page_layout}
-        - aio_id: The All-in-One component ID used to generate the pagination, content and store component's dictionary IDs.
-
-        """
-
-        # Set default props
-        if aio_id is None:
-            aio_id = str(uuid.uuid4())
-
-        # MultiPageAIO layout
-        super().__init__(
-            [
-                dcc.Location(id=self.ids.location(aio_id), refresh=False),
-                html.Div(id=self.ids.page_content(aio_id)),
-                dcc.Store(id=self.ids.store(aio_id), data=layouts),
-            ]
-        )
-
-    @callback(
-        Output(ids.page_content(MATCH), "children"),
-        Input(ids.location(MATCH), "pathname"),
-        State(ids.store(MATCH), "data"),
-    )
-    def show_page(url, layouts):
-        return layouts.get(url, "404")
