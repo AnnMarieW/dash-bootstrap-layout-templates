@@ -7,19 +7,20 @@ Design Objectives:
 - tpl.Layout
   - is a dbc.Container with optional header and footer
   - each item is a wrapped in a dbc.Row
-  - if the item is a list, then a multi col row.  items in the list may be any of type:
-      - tpl.Card - the width parameter is passed to the wrapping dbc.Col
-      - tpl.Form - the width parameter is passed to the wrapping dbc.Col
-      - dbc.Col  - full customization of a column - good if you don't want the cntent in a card.
-
-  - Use a custom header to make a multi-page app
+  - if the item is a list, then it's a multi col row.  items in the list may be any of type:
+      - tpl.Card - the width parameter is passed to dbc.Col
+      - tpl.Form - the width parameter is passed to dbc.Col
+      - dbc.Col  - full customization of a column - good if you don't want the content in a card.
 
   -  tpl.Card
-  -  tpl.Form has a width {}
-          - wrapped in a card
-          - (text, component)
-           - make a floating form =true option (default=false)
-              - if input and placeholder, wrap the text in a Floating Form
+        - wrapped in dbc.Col()
+        - has a width prop.  Width accepts int or dict.  Dict includes the dbc.Column props for width and breakpoints
+
+  -  tpl.Form
+          - wrapped in a dbc.Col(dbc.Card())
+          - default width is set for control pannel with responsive breakpoints:
+             width={"width":12, "md":6, "xl":4}
+         - if children include tuples ("label", component), then it adds bottom margin
 
   - Header
         - adds a logo if one
@@ -31,6 +32,7 @@ Design Objectives:
 """
 from dash import html, dcc
 import dash_bootstrap_components as dbc
+from layout_templates.util import get_logo
 
 
 def make_markdown(content):
@@ -43,11 +45,11 @@ def make_markdown(content):
 
 def Header(title):
     """ Default single page header bar """
-    header = html.H4(title, className="bg-primary text-white p-3")
+    header = html.H4([get_logo(), title], className="bg-primary text-white hstack gap-3 p-3")
     return header if title else None
 
 
-def Form(content, width={"width":12, "md":6, "xl":4}, header=None, floating_form=False ):
+def Form(content, width={"width":12, "md":6, "lg":4}, header=None, floating_form=False ):
     """ returns a dbc.Col(dbc.Card(dbc.Form()))"""
     form = []
     for c in content:
