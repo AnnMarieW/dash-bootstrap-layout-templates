@@ -15,7 +15,7 @@ def get_logo():
     split_assets = [x.split('.')[0] for x in assets]
     for i,x in enumerate(split_assets):
         if x=='logo':
-            return html.Img(src='assets/'+assets[i],style=dict(height='40px'))
+            return html.Img(src='./assets/'+assets[i],style=dict(height='40px'))
     return None
 
 # from dash-labs utils
