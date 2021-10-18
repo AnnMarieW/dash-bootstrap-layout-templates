@@ -8,20 +8,23 @@ fig = px.scatter(df, x="total_bill", y="tip", opacity=0.65, trendline="ols")
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
-controls = tpl.card(
-    [(dcc.Dropdown(), "My dropdown"), (dcc.Slider(), "My Slider")],
-    header="My control panel"
-)
+controls = tpl.Form([("My dropdown", dcc.Dropdown()), ("My Slider", dcc.Slider())], header="My Control Panel")
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
-        [dbc.Col(controls, width=4), dbc.Col(tpl.card([dcc.Graph(figure=fig)]), width=8)],
+         """
+        # Hello Dash Templates!
+        *** App with a side panel ***
+        """,
+        [
+            controls,
+            tpl.Card([dcc.Graph(figure=fig)], width=8)
+         ],
     ],
 )
 
 if __name__ == "__main__":
     app.run_server(debug=True)
-
 
 
 # --------------------------------------------------------

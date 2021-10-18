@@ -6,8 +6,8 @@ Configure the slide_deck app:
 To create a new presentation:
  1) Put content in pages folder
  2) Update the three lines in the "Change presentation section
-    - Import the pages to want to include in the presentation
-    - Update the `slide_deck` dict  {page_number(int), page_content}
+    - Import the pages to include in the presentation
+    - Update the `slide_deck` dict  {page_number, page_content}
     - Update the `title`
 """
 

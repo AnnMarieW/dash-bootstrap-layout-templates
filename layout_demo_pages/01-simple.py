@@ -5,7 +5,7 @@ import layout_templates.layout as tpl
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
         """
         # Hello Dash Templates!

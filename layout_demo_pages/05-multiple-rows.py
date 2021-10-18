@@ -8,7 +8,7 @@ fig = px.scatter(df, x="total_bill", y="tip", opacity=0.65, trendline="ols")
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
         """
         # Hello Dash Templates!    

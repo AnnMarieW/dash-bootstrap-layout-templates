@@ -10,18 +10,11 @@ checklist = dbc.Checklist(
     options=[{"label": d, "value": d} for d in ["Thur", "Fri", "Sat", "Sun"]],
     value=["Sun"],
 )
-checklist_card = tpl.card([(checklist, "Select day:")])
-slide_content = tpl.layout(
-    [
-        [
-            dbc.Col(checklist_card, width=3),
-            dbc.Col(dcc.Graph(id="slide-graph"), width=9),
-        ],
-    ],
-    title=None,
-)
+controls = tpl.Form([("Select day:", checklist)])
+graph = tpl.Card([dcc.Graph(id="slide-graph")], width=8)
+slide_content = tpl.Layout([[controls, graph]], title=None)
 
-layout = tpl.card([(slide_content, "Here is some data on tips",)]),
+layout = tpl.Card(["## Here is some data on tips", slide_content])
 
 
 @callback(Output("slide-graph", "figure"), Input("slide-checklist", "value"))

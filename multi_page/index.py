@@ -5,6 +5,7 @@ from dash import Dash, dcc, html, Input, Output
 from pages import page1, page2
 
 
+
 app = Dash(__name__,
                 suppress_callback_exceptions=True,
                 external_stylesheets=[themes.BOOTSTRAP]

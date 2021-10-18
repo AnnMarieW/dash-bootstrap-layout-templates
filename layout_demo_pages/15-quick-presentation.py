@@ -18,12 +18,12 @@ checklist = dbc.Checklist(
     options=[{"label": d, "value": d} for d in ["Thur", "Fri", "Sat", "Sun"]],
     value=["Sun"],
 )
-checklist_card = tpl.card([(checklist, "Select day:")])
-slide_content = tpl.layout(
+controls = tpl.Form([("Select day:", checklist)])
+slide_content = tpl.Layout(
     [
         [
-            dbc.Col(checklist_card, width=3),
-            dbc.Col(dcc.Graph(id="slide-graph"), width=9),
+            controls,
+            tpl.Card([dcc.Graph(id="slide-graph")], width=8),
         ],
     ],
     title=None,
@@ -33,7 +33,7 @@ slide_content = tpl.layout(
 # slide_deck is a dict where the key is page number and the value is the layout for each page.
 # This is passed to the SlideDeckAIO component
 slide_deck = {
-    1: tpl.card(
+    1: tpl.Card(
         [
             """
             ### Hey team - Check out these slides for our next planning meeting!
@@ -43,14 +43,15 @@ slide_deck = {
             """
         ],
     ),
-    2: tpl.card([
+    2: tpl.Card([
         (
-            dcc.Graph(figure=px.bar(df, x="day", y="total_bill")),
             "Maybe we should close on the weekend?  Thursday was higher than normal but still doesn't cover overhead",
+            dcc.Graph(figure=px.bar(df, x="day", y="total_bill")),
         )],
     ),
-    5: tpl.card([
+    5: tpl.Card([
         (
+            "This graph is cool, but I have no idea what it means.  Can someone explain?",
             dcc.Graph(
                 figure=px.parallel_categories(
                     df,
@@ -58,22 +59,23 @@ slide_deck = {
                     color_continuous_scale=px.colors.sequential.Inferno,
                 )
             ),
-            "This graph is cool, but I have no idea what it means.  Can someone explain?",
+
         )]
     ),
-    3: tpl.card([
+    3: tpl.Card([
         (
+            "This shows the success of Thursday's lunch event!",
             dcc.Graph(
                 figure=px.sunburst(df, path=["day", "time"], values="total_bill")
             ),
-            "This shows the success of Thursday's lunch event!",
         )]
     ),
-    4: tpl.card([(slide_content, "Here is some data on tips",)]),
+    4: tpl.Card(["Here is some data on tips", slide_content]),
 }
 
 # Slide deck navigation is handled in the SlideDeckAIO component
-app.layout = dbc.Container(SlideDeckAIO(slide_deck=slide_deck, title="Interactive Presentation"), fluid=True)
+app.layout = tpl.Layout([SlideDeckAIO(slide_deck=slide_deck, title="Interactive Presentation")], title=None)
+
 
 # slide 4 callback
 @app.callback(Output("slide-graph", "figure"), Input("slide-checklist", "value"))

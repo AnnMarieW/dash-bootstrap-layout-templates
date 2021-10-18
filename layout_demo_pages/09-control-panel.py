@@ -5,13 +5,13 @@ import layout_templates.layout as tpl
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
-controls = tpl.card([(dcc.Dropdown(), "My dropdown"), (dcc.Slider(), "My Slider")])
+controls = tpl.Form([("My dropdown", dcc.Dropdown()), ("My Slider",dcc.Slider())], header="## Optional Header")
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
         """
         # Hello Dash Templates!
-        *** Make a control panel with labeled components using the `tpl.card` template ***
+        *** Make a control panel with labeled components using the `tpl.Form` template ***
         """,
         controls,
     ],

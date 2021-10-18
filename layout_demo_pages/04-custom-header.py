@@ -25,7 +25,7 @@ navbar = dbc.NavbarSimple(
     dark=True,
 )
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
         navbar,
 

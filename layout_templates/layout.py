@@ -1,4 +1,34 @@
 #
+"""
+Design Objectives:
+
+- easy to go from shorthand to full customization
+
+- tpl.Layout
+  - is a dbc.Container with optional header and footer
+  - each item is a wrapped in a dbc.Row
+  - if the item is a list, then a multi col row.  items in the list may be any of type:
+      - tpl.Card - the width parameter is passed to the wrapping dbc.Col
+      - tpl.Form - the width parameter is passed to the wrapping dbc.Col
+      - dbc.Col  - full customization of a column - good if you don't want the cntent in a card.
+
+  - Use a custom header to make a multi-page app
+
+  -  tpl.Card
+  -  tpl.Form has a width {}
+          - wrapped in a card
+          - (text, component)
+           - make a floating form =true option (default=false)
+              - if input and placeholder, wrap the text in a Floating Form
+
+  - Header
+        - adds a logo if one
+        - use custom headers for multi-page apps
+
+  todo - in dcc.Markdwon, un-formatted text is wrapped in a <p> with 1rm mb which does not look good in labels
+        and in card headers.  How to remove this in tpl.Form and tpl.Card headers, footers and labels?
+
+"""
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 
@@ -11,50 +41,54 @@ def make_markdown(content):
         return dcc.Markdown(content, className="mb-0") if isinstance(content, str) else content
 
 
-def make_header(title):
-    """ Default header bar """
+def Header(title):
+    """ Default single page header bar """
     header = html.H4(title, className="bg-primary text-white p-3")
     return header if title else None
 
-def labeled(component, label):
-    return html.Div([dbc.Label(dcc.Markdown(label, className="mb-0")), component,], className="mb-2")
 
-
-def make_labeled_components(content):
-    """ cards may have an optional header and footer"""
-    """ to-do: Allow columns.  This currently puts everything in rows (no columns, no lists)"""
-    row = []
+def Form(content, width={"width":12, "md":6, "xl":4}, header=None, floating_form=False ):
+    """ returns a dbc.Col(dbc.Card(dbc.Form()))"""
+    form = []
     for c in content:
-
         label = " "
         # handle label  if given
         if len(c) == 2:
-            c, label = c
-            if isinstance(label, str):
-                label = dcc.Markdown(label, className="mb-0")
-
-        # wrap string in markdown if component is a string
-        if isinstance(c, str):
-            c = dcc.Markdown(c, className="mb-0")
-        row.append(html.Div([label, c], className="mb-4"))
-    return row
+            label, c = c
+        form.append(html.Div([make_markdown(label), make_markdown(c)], className="mb-4"))
+    return Card(form, width=width, header=header)
 
 
-def card(content, header=None, footer=None, className=None):
-    header = dbc.CardHeader(header) if header else None
-    content = make_labeled_components(content) if content else None
-    footer = dbc.CardFooter(footer) if footer else None
-    return dbc.Card([header, dbc.CardBody(content), footer], className=className)
+def make_col(content, width):
+    """ wraps content in a dbc.Col
+        :param width: int or a dict with breakpoint "xs", "sm", "md", "lg" "xl", "xxl"
+
+    """
+    if isinstance(width, int):
+        return dbc.Col(content, width=width)
+    if isinstance(width, dict):
+        if "width" in width and len(width) == 1:
+            return dbc.Col(content, width=width['width'])
+    return dbc.Col(content, **width )
 
 
-def make_rows(content):
+def Card(content, header=None, footer=None, className=None, width=12):
+    """ creates a dbc.Col(dbc.Card() ) """
+    header = dbc.CardHeader(make_markdown(header)) if header else None
+    content = Grid(content) if content else None
+    footer = dbc.CardFooter(make_markdown(footer)) if footer else None
+    card = dbc.Card([header, dbc.CardBody(content), footer], className=className)
+    return make_col(card, width)
+
+
+def Grid(content):
     """ makes a single or multi column dbc.Row from a list of components"""
     # to-do check if content of the col is a string and wrap with markdown?
     content = make_markdown(content)
     row = []
     for c in content:
         if isinstance(c, (dbc.Col, list)):
-            row.append(dbc.Row(make_markdown(c), className="mb-2"))
+            row.append(dbc.Row(c, className="mb-2"))
         elif isinstance(c, dbc.Row):
             row.append(c)
         else:
@@ -62,18 +96,18 @@ def make_rows(content):
     return row
 
 
-def layout(content, title="Layout Templates Demo", className=None, id=""):
+def Layout(content, title="Layout Templates Demo", className=None, id=""):
     return dbc.Container(
-        [make_header(title)] + make_rows(content),
+        [Header(title)] + Grid(content),
         fluid=True,
         className=className,
         id=id,
     )
 
 
-def tab(content, label=None, tab_id="", className=""):
+def Tab(content, label=None, tab_id="", className=""):
     return dbc.Tab(
-        dbc.Card(make_rows(content), body=True, className="mt-3 " + className),
+        dbc.Card(Grid(content), body=True, className="mt-3 " + className),
         label=label,
         tab_id=tab_id,
     )

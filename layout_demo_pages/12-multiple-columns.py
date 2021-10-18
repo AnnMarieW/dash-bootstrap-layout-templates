@@ -10,22 +10,20 @@ fig = px.scatter(df, x="total_bill", y="tip", opacity=0.65, trendline="ols")
 fig2= go.Figure(go.Indicator(mode="number+delta",value = 450, delta={"reference":90}, title={"text":"Sales"}))
 fig2.update_layout(margin=dict(l=20, r=20, t=50, b=20))
 
-gauge = dbc.Card(dcc.Graph(figure=fig2, style={"height":150}))
-graph = dbc.Card(dcc.Graph(figure=fig, ))
+gauge = tpl.Card([dcc.Graph(figure=fig2, style={"height":150})], width=4)
+graph = dbc.Card(dcc.Graph(figure=fig))
 
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
-app.layout = tpl.layout(
+app.layout = tpl.Layout(
     [
         """
         # Hello Dash Templates!
         *** Use a list to make multiple columns ***
         """,
-
-        [dbc.Col(gauge, width=4), dbc.Col(gauge, width=4), dbc.Col(gauge, width=4)],
+        [gauge, gauge, gauge],
         graph
-
     ],
 )
 

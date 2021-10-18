@@ -57,41 +57,32 @@ app_pagination = dbc.Pagination(
     active_page=1,
 )
 
-card = tpl.card(
+card = tpl.Card(
     [
-        (app_dropdown, "Please select an app"),
-        (app_pagination, "Or for a tutorial, step through the multi_page in sequence"),
+        ("Please select an app", app_dropdown),
+        ("Or for a tutorial, step through the multi_page in sequence", app_pagination, ),
     ],
     header="Welcome to the Dash Layout Templates Demo",
     className="m-2",
 )
 
 
-landing_page = tpl.layout(
+landing_page = tpl.Layout(
     [
-        [dbc.Col(card, width=12, lg=5)],
-        html.Iframe(id="iframe", className=("vw-100 vh-100")),
+        [tpl.Card([card], width={"width":12, "lg":5})],
+        html.Iframe(id="iframe",  className=("vw-100 vh-100")),
     ],
     title=None,
 )
 
 
 def make_demo(code, demo_app):
-    code = tpl.card(
+    return tpl.Layout([
         [
-            # todo handle no label - shouldn't need to include blank string
-            (html.Div(code, className="overflow-auto"), " ")
-        ]
-    )
-    return tpl.layout(
-        [
-            [
-                dbc.Col(code, width=12, lg=5),
-                dbc.Col(demo_app, width=12, lg=7),
-            ]
+            tpl.Card([html.Div(code, className="overflow-auto")],width={"width": 12, "lg": 5}),
+            dbc.Col(dbc.Card(demo_app), width=12, lg= 7)
         ],
-        title=None,
-    )
+    ], title=None)
 
 
 app.layout = html.Div([dcc.Location(id="url", refresh=False), html.Div(id="display"),])

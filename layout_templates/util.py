@@ -6,31 +6,57 @@ todo- maybe make this two files? 1) user templates, 2) other utilities
 
 from dash import html, dcc, dash_table
 import dash_bootstrap_components as dbc
+import os
 
+
+def get_logo():
+    """ get the logo from /assets,  if there is one"""
+    assets = os.listdir(os.getcwd()+'/assets/')
+    split_assets = [x.split('.')[0] for x in assets]
+    for i,x in enumerate(split_assets):
+        if x=='logo':
+            return html.Img(src='assets/'+assets[i],style=dict(height='40px'))
+    return None
+
+# from dash-labs utils
+def filter_kwargs(*args, **kwargs):
+    """
+    Combine dictionaries and remove values that are None or Component.UNDEFINED
+    :param args: List of dictionaries with string keys to filter
+    :param kwargs: Additional keyword arguments to filter
+    :return: dict containing all of the key-value pairs from args and kwargs with
+        values that are not None and not Component.UNDEFINED
+    """
+    result = {}
+
+    for arg in list(args) + [kwargs]:
+        if isinstance(arg, dict):
+            for k, v in arg.items():
+               # if v is not None and v is not Component.UNDEFINED:
+               if v is not None:
+                    result[k] = v
+
+    return result
 
 navbar = dbc.NavbarSimple(
     children=[
-         dbc.NavItem(dbc.NavLink("Templates", href="/templates")),
-
+        dbc.NavItem(dbc.NavLink("Page 1", href='/pages/page1')),
         dbc.DropdownMenu(
             children=[
-                dbc.DropdownMenuItem("More layout_demo_pages", header=True),
-                dbc.DropdownMenuItem("Templates", href="/templates"),
-                dbc.DropdownMenuItem("Theme Switcher", href="/theme_switch"),
-                dbc.DropdownMenuItem("GitHub", href="https://github.com/AnnMarieW/dash-bootstrap-layout-templates"),
+                dbc.DropdownMenuItem("More pages", header=True),
+                dbc.DropdownMenuItem("Page 2", href='/pages/page2'),
+                dbc.DropdownMenuItem("Page 3", href="#"),
             ],
             nav=True,
             in_navbar=True,
             label="More",
         ),
     ],
-    brand="Dash Layout Templates Demo",
+    brand="NavbarSimple",
     brand_href="#",
-    color="black",
+    color="primary",
     dark=True,
 )
-
-
 
 
 def make_dropdown(option_list, id=id, option_val=0):

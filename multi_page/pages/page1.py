@@ -3,6 +3,7 @@ from dash import  html, dcc, Input, Output, callback
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import layout_templates.layout as tpl
+import layout_templates.util as util
 
 df = px.data.tips()
 
@@ -11,38 +12,12 @@ checklist = dbc.Checklist(
     options=[{"label": d, "value": d} for d in ["Thur", "Fri", "Sat", "Sun"]],
     value=["Sun"],
 )
-checklist_card = tpl.card([(checklist, "Select day:")])
+controls = tpl.Form([("Select day:", checklist)])
 
-navbar = dbc.NavbarSimple(
-    children=[
-        dbc.NavItem(dbc.NavLink("Page 1", href='/pages/page1')),
-        dbc.DropdownMenu(
-            children=[
-                dbc.DropdownMenuItem("More pages", header=True),
-                dbc.DropdownMenuItem("Page 2", href='/pages/page2'),
-                dbc.DropdownMenuItem("Page 3", href="#"),
-            ],
-            nav=True,
-            in_navbar=True,
-            label="More",
-        ),
-    ],
-    brand="NavbarSimple",
-    brand_href="#",
-    color="primary",
-    dark=True,
-)
-
-
-# def layout():
-#     return tpl.layout(
-layout = tpl.layout(
+layout = tpl.Layout(
     [
-        navbar,
-        [
-            dbc.Col(checklist_card, width=3),
-            dbc.Col(dcc.Graph(id="slide-graph"), width=9),
-        ],
+        util.navbar,
+        [controls, tpl.Card([dcc.Graph(id="slide-graph")], width=8)],
     ],
     title=None,
 )

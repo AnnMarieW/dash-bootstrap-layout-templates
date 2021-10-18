@@ -45,7 +45,7 @@ See the project on [GitHub](https://github.com/AnnMarieW/dash-bootstrap-layout-t
 """
 
 
-app.layout = tpl.layout([intro])
+app.layout = tpl.Layout([intro])
 
 if __name__ == "__main__":
     app.run_server(debug=True)

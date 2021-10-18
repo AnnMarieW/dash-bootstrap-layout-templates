@@ -16,15 +16,15 @@ dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
 table = util.make_datatable(df, id="table")
 
 
-controls = tpl.card(
+controls = tpl.Form(
     [
-        (dropdown, "Select indicator (y-axis)"),
-        (checklist, "Select Continents"),
-        (slider, "Select Years"),
+        ("Select indicator (y-axis)", dropdown),
+        ("Select Continents", checklist),
+        ("Select Years", slider),
     ],
 )
 
-app.layout = tpl.layout([[dbc.Col(controls, width=4), dbc.Col(dcc.Graph(id="line_chart"), width=8)]])
+app.layout = tpl.Layout([[controls, tpl.Card([dcc.Graph(id="line_chart")], width=8)]])
 
 
 @app.callback(
