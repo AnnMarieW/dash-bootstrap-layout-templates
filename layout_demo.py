@@ -60,7 +60,7 @@ app_pagination = dbc.Pagination(
 card = tpl.Card(
     [
         ("Please select an app", app_dropdown),
-        ("Or for a tutorial, step through the page in sequence", app_pagination, ),
+        ("Or for a tutorial, step through the apps in sequence", app_pagination, ),
     ],
     header="Welcome to the Dash Layout Templates Demo",
     className="m-2",
