@@ -10,13 +10,8 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!    
-        *** Each item in the layout is a row ***
-        """,
-
+        " *** Each item in the layout is a row *** ",
         dcc.Graph(figure=fig),
-
         """  ### This is a really cool graph! """,
     ],
 )

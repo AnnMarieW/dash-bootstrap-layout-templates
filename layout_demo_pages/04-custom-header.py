@@ -29,11 +29,10 @@ app.layout = tpl.Layout(
     [
         navbar,
 
-        """
-        # Hello Dash Templates!        
+        """      
         *** This app has a custom header.***  
-        
-        Make this the default header by adding it to the config file.
+        ------        
+        Use a header like this to make a multi-page app.
         """,
     ],
     title=None,

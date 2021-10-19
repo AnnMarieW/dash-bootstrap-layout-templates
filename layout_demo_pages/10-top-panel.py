@@ -12,10 +12,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** App with controls on the top ***
-        """,
+        "  *** App with controls on the top *** ",
         tpl.Form([("My dropdown",dcc.Dropdown()), ("My Slider", dcc.Slider())], width=12),
         tpl.Card([dcc.Graph(figure=fig)])
     ],

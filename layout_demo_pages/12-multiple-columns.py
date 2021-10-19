@@ -18,10 +18,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** Use a list to make multiple columns ***
-        """,
+        " *** Use a list to make multiple columns *** ",
         [gauge, gauge, gauge],
         graph
     ],

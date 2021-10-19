@@ -11,10 +11,10 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** Two graphs side by side. One of the most popular question on the 
-        Dash Community Forum with >65K views***
+        """        
+        *** Two graphs side by side. One of the most popular question on the Dash Community Forum with >65K views. ***  
+        ________    
+        To make a multi-column row, simply put the items in a list!
         """,
         [graph, graph],
         " ### Wow - that was so easy! ##",

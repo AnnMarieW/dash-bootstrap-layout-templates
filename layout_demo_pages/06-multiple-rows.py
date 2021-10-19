@@ -16,13 +16,8 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!    
-        *** Example of custom row ***
-        """,
-
+        " *** Example of custom row *** ",
         tpl.Card([dcc.Graph(figure=fig)]),
-
         dbc.Row(dbc.Col(table, width=7), justify="center"),
     ],
 )

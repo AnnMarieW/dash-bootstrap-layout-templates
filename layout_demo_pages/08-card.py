@@ -10,10 +10,7 @@ card3 = tpl.Card(["__This card has a header and footer__"], header="Card Header"
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** Card may have an optional header and footer ***
-        """,
+        " *** Card may have an optional header and footer *** ",
         [controls, card2, card3]
     ],
 )

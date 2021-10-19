@@ -22,10 +22,7 @@ tab3 = tpl.Tab([" ## More Info Here"], label="More Info")
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates
-        *** Use tpl.tab for tab content ***
-        """,
+        " *** Use tpl.tab for tab content *** ",
         dbc.Tabs([tab1, tab2, tab3]),
     ]
 )

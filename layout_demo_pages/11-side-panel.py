@@ -12,10 +12,7 @@ controls = tpl.Form([("My dropdown", dcc.Dropdown()), ("My Slider", dcc.Slider()
 
 app.layout = tpl.Layout(
     [
-         """
-        # Hello Dash Templates!
-        *** App with a side panel ***
-        """,
+         " *** App with a side panel *** ",
         [
             controls,
             tpl.Card([dcc.Graph(figure=fig)], width=8)

@@ -9,10 +9,7 @@ controls = tpl.Form([("My dropdown", dcc.Dropdown()), ("My Slider",dcc.Slider())
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** Make a control panel with labeled components using the `tpl.Form` template ***
-        """,
+        " *** Make a control panel with labeled components using the `tpl.Form` template *** ",
         controls,
     ],
 )

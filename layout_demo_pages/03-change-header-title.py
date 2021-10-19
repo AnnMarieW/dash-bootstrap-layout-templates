@@ -7,10 +7,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 app.layout = tpl.Layout(
     [
-        """
-        # Hello Dash Templates!
-        *** This app has a new title.  ***
-        """
+        " *** This app has a new title.  *** "
     ],
     title="This Is My New App Title",
 )
