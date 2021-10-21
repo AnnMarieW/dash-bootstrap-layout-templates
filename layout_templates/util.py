@@ -118,24 +118,24 @@ def make_datatable(dff, id=id):
         filter_action="native",
         sort_action="native",
         style_table={"overflowX": "auto"},
-        # style_data_conditional=[
-        #     {
-        #         "if": {"state": "active"},
-        #         "border": "1px solid var(--bs-primary)",
-        #         "opacity": 0.75,
-        #     },
-        #     {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
-        #     {
-        #         'if': {
-        #             'column_id': 'pop',
-        #         },
-        #         'backgroundColor': 'dodgerblue',
-        #         'color': 'yellow',
-        #         'fontWeight': 1000,
-        #     },
-        #
-        # ],
-    )
+    #     style_data_conditional=[
+    #         {
+    #             "if": {"state": "active"},
+    #             "outline": "2px solid yellow",
+    #             "opacity": 0.75,
+    #         },
+    #         {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
+    #         {
+    #             'if': {
+    #                 'column_id': 'pop',
+    #             },
+    #             'backgroundColor': 'dodgerblue',
+    #             'color': 'yellow',
+    #             'fontWeight': 1000,
+    #         },
+    #
+    #     ],
+     )
 
 
 

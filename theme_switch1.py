@@ -113,7 +113,7 @@ dcc_tabs = html.Div([
     ]),
     html.Div(id='tabs-content')
 ])
-theme_sample = tpl.card([html.Div(
+theme_sample = tpl.Card([html.Div(
     [
         dbc.Button("Primary", color="primary", className="mr-1"),
         dbc.Button("Secondary", color="secondary", className="mr-1"),
@@ -130,7 +130,7 @@ theme_sample = tpl.card([html.Div(
 dcc_sampler = [
     "## This is a Sample of Dash Core Components",
     theme_sample,
-    tpl.card(
+    tpl.Card(
         [
             datepicker_single,
             datepicker_range,
@@ -157,7 +157,7 @@ table = util.make_datatable(df, id="table")
 
 controls = html.Div(
     [
-        tpl.card(
+        tpl.Card(
             [
                 (dropdown, "Select indicator (y-axis)"),
                 (checklist, "Select Continents"),
@@ -170,13 +170,13 @@ controls = html.Div(
 
 tabs = dbc.Tabs(
     [
-        tpl.tab([dcc.Graph(id="line-chart")], label="Graph"),
-        tpl.tab([table], label="Table"),
-        tpl.tab(dcc_sampler, label="dcc components")
+        tpl.Tab([dcc.Graph(id="line-chart")], label="Graph"),
+        tpl.Tab([table], label="Table"),
+        tpl.Tab(dcc_sampler, label="dcc components")
     ]
 )
 
-app.layout = tpl.layout([
+app.layout = tpl.Layout([
     [dbc.Col(controls, width=4), dbc.Col(tabs, width=8)]
 ], className="dbc")
 
