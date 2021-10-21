@@ -1,5 +1,5 @@
 
-from dash import Dash, dcc, html, Input, Output, State
+from dash import Dash, dash_table, dcc, html, Input, Output
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
@@ -9,6 +9,38 @@ import layout_templates.util as util
 
 df = px.data.gapminder()
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+
+table = dash_table.DataTable(
+        id="table",
+        columns=[{"name": i, "id": i, "deletable": True} for i in df.columns],
+        data=df.to_dict("records"),
+        page_size=10,
+        editable=True,
+        cell_selectable=True,
+        filter_action="native",
+        sort_action="native",
+        style_table={"overflowX": "auto"},
+        # style_data_conditional=[
+        #     {
+        #         "if": {"state": "active"},
+        #         "border": "1px solid var(--bs-primary)",
+        #         "opacity": 0.75,
+        #     },
+        #     {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
+        #     {
+        #         'if': {
+        #             'column_id': 'pop',
+        #         },
+        #         'backgroundColor': 'dodgerblue',
+        #         'color': 'yellow',
+        #         'fontWeight': 1000,
+        #     },
+        #
+        # ],
+    )
+
+
 
 # ---- DCC Sampler -----------------------------------------------
 dcc_dropdown = html.Div([
@@ -153,7 +185,7 @@ dcc_sampler = [
 slider = util.make_range_slider(df.year.unique(), id="years")
 checklist = util.make_checklist(df.continent.unique(), id="continents")
 dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
-table = util.make_datatable(df, id="table")
+
 
 controls = html.Div(
     [
