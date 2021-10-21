@@ -241,6 +241,7 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
   border-color: var(--bs-primary);
   background-color: rgba(var(--bs-primary-rgb), 0.5);
+  outline: 1px solid var(--bs-primary);
 
 }
 
@@ -257,4 +258,18 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 
 .dash-table-container .previous-next-container .page-number .current-page-container input.current-page {
   background-color: transparent;
+}
+
+.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+  border-collapse: inherit;
+  border-spacing: unset;
 }
