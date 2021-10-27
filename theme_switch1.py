@@ -21,23 +21,16 @@ table = dash_table.DataTable(
         filter_action="native",
         sort_action="native",
         style_table={"overflowX": "auto"},
-        # style_data_conditional=[
-        #     {
-        #         "if": {"state": "active"},
-        #         "border": "1px solid var(--bs-primary)",
-        #         "opacity": 0.75,
-        #     },
-        #     {"if": {"state": "selected"}, "border": "1px solid", "opacity": 0.75,},
-        #     {
-        #         'if': {
-        #             'column_id': 'pop',
-        #         },
-        #         'backgroundColor': 'dodgerblue',
-        #         'color': 'yellow',
-        #         'fontWeight': 1000,
-        #     },
-        #
-        # ],
+        style_data_conditional=[
+           {
+            'if': {
+                'state': 'active'  # 'active' | 'selected'
+            },
+           'backgroundColor': 'rgba(var(--bs-primary-rgb), 0.2)',
+           'border': '1px solid rgb(0, 116, 217)'
+           }
+        
+        ],
     )
 
 
