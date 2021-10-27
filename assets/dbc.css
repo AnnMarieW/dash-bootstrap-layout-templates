@@ -211,7 +211,6 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 }
 
 
-
 /* ----------------------------------
  * Tabs
 */
@@ -244,6 +243,16 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   outline: 1px solid var(--bs-primary);
 
 }
+
+
+element.style {}
+
+.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused input:not([type=radio]):not([type=checkbox]) {
+  color: var(--bs-body-color);
+
+}
+
+
 
 .dbc input::placeholder {
   ;
