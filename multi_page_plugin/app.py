@@ -37,7 +37,7 @@
 # if __name__ == "__main__":
 #     app.run_server(debug=True)
 
-#---------------------------------------------------
+# ---------------------------------------------------
 # from dash import Dash, html, dcc
 # import dash
 # import pages_plugin
@@ -76,44 +76,37 @@
 #     app.run_server(debug=True)
 
 
-from dash import Dash, html, dcc
+
 import dash
 import pages_plugin
+from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
+from aio.aio_components import ThemeChangerAIO
 
-from dash_bootstrap_templates import load_figure_template
-load_figure_template("cyborg")
-
-app = Dash(__name__, plugins=[pages_plugin],
-            suppress_callback_exceptions=True,
-           external_stylesheets=[dbc.themes.CYBORG])
+app = Dash(__name__, plugins=[pages_plugin], external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 print(dash.page_registry)
 navbar = dbc.NavbarSimple(
-    children=[
-        dbc.NavItem(dbc.NavLink("Page 1", href="/pages/page1")),
-        dbc.DropdownMenu(
-            children=[dbc.DropdownMenuItem("More pages", header=True)]
-            +
-            [
-                dbc.DropdownMenuItem(page["name"], href=page["path"])
-                for page in dash.page_registry.values()
-                if page['module'] != 'pages.not_found_404'
-
-            ],
-            nav=True,
-            in_navbar=True,
-            label="More",
-        ),
-    ],
+    dbc.DropdownMenu(
+        [
+            dbc.DropdownMenuItem(page["name"], href=page["path"])
+            for page in dash.page_registry.values()
+            if page["module"] != "pages.not_found_404"
+        ],
+        nav=True,
+        label="More Pages",
+    ),
     brand="Multi Page App Plugin Demo",
-    brand_href="#",
     color="primary",
     dark=True,
-    className="mb-2"
+    className="mb-2",
 )
 
-app.layout = dbc.Container([navbar, pages_plugin.page_container], className="dbc",fluid=True)
+app.layout = dbc.Container(
+    [navbar, pages_plugin.page_container, ThemeChangerAIO(aio_id="theme"),],
+    className="dbc",
+    fluid=True,
+)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run_server(debug=True)

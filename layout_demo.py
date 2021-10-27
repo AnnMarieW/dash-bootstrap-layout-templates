@@ -89,7 +89,7 @@ app.layout = html.Div([dcc.Location(id="url", refresh=False), html.Div(id="displ
 
 for k in apps:
     # Prepend to layout IDs recursively in-place
-    prepend_recursive(apps[k].layout, prefix=k + "-")
+   # prepend_recursive(apps[k].layout, prefix=k + "-")
 
     app.callback_map.update(apps[k].callback_map)
     app._callback_list.extend(apps[k]._callback_list)
@@ -130,4 +130,4 @@ def sync(app, page):
 
 
 if __name__ == "__main__":
-    app.run_server(debug=False)
+    app.run_server(debug=True)

@@ -14,7 +14,7 @@ app = Dash(
 
 #----- used in slide 4 layout  --------------
 checklist = dbc.Checklist(
-    id="slide-checklist",
+    id="checklist",
     options=[{"label": d, "value": d} for d in ["Thur", "Fri", "Sat", "Sun"]],
     value=["Sun"],
 )
@@ -78,7 +78,7 @@ app.layout = tpl.Layout([SlideDeckAIO(slide_deck=slide_deck, title="Interactive 
 
 
 # slide 4 callback
-@app.callback(Output("slide-graph", "figure"), Input("slide-checklist", "value"))
+@app.callback(Output("slide-graph", "figure"), Input("checklist", "value"))
 def update_slide(days):
     dff = df[df.day.isin(days)]
     return px.histogram(dff, x="total_bill", y="tip", color="sex", marginal="rug")

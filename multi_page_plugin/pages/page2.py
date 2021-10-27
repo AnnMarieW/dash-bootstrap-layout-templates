@@ -1,21 +1,30 @@
-
-from dash import dcc
+import dash
+dash.register_page(__name__)
+from dash import dcc, html, Input, Output, callback
 import plotly.express as px
 import layout_templates.layout as tpl
-from dash_bootstrap_templates import load_figure_template
-load_figure_template("cyborg")
-import dash
+from aio.aio_components import ThemeChangerAIO
 
-dash.register_page(__name__)
 
 df = px.data.tips()
-fig = px.scatter(df, x="total_bill", y="tip", opacity=0.65, trendline="ols")
+
+slider1 = dcc.Slider(id="slider", min=0, max=10)
 
 controls = tpl.Form(
-    [("My Dropdown", dcc.Dropdown()), ("My Slider", dcc.Slider())],
+    [("My Dropdown", dcc.Dropdown()), ("Page 2 Slider", slider1)],
     header="My control panel",
 )
-
 layout = tpl.Layout(
-    [[controls, tpl.Card([dcc.Graph(figure=fig)], width=8)]], title=None
+    [[controls, tpl.Card([html.Div(id="scatter")], width=8)]], title=None
 )
+
+
+@callback(
+    Output("scatter", "children"), Input(ThemeChangerAIO.ids.store("theme"), "data"), Input("slider","value")
+)
+def update(theme, slider):
+    return dcc.Graph(
+        figure=px.scatter(
+            df, x="total_bill", y="tip", opacity=0.65, trendline="ols", template=theme,
+        )
+    )

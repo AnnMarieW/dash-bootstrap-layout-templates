@@ -11,7 +11,7 @@ app = Dash(__name__, external_stylesheets=[dbc.themes.SPACELAB])
 # This will be changed to the new shorthand in the next release of Dash
 import layout_templates.util as util
 slider = util.make_range_slider(df.year.unique(), id="years")
-checklist = util.make_checklist(df.continent.unique(), id="continents")
+checklist = util.make_checklist(df.continent.unique(), id="checklist")
 dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
 table = util.make_datatable(df, id="table")
 
@@ -30,7 +30,7 @@ app.layout = tpl.Layout([[controls, tpl.Card([dcc.Graph(id="line_chart")], width
 @app.callback(
     Output("line_chart", "figure"),
     Input("indicator", "value"),
-    Input("continents", "value"),
+    Input("checklist", "value"),
     Input("years", "value"),
 )
 def update_line_chart(indicator, continents, years):
