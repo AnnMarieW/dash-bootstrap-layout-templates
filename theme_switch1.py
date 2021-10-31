@@ -1,5 +1,5 @@
 
-from dash import Dash, dcc, html, Input, Output, State
+from dash import Dash, dcc, html, dash_table, Input, Output, State
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
@@ -7,8 +7,34 @@ import layout_templates.layout as tpl
 from aio.aio_components import ThemeChangerAIO, dbc_dark_themes, url_dbc_themes
 import layout_templates.util as util
 
+from collections import OrderedDict
+import pandas as pd
+
 df = px.data.gapminder()
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+table = dash_table.DataTable(
+    id="table",
+    columns=[{"name": i, "id": i, "deletable": True} for i in df.columns],
+    data=df.to_dict("records"),
+    page_size=10,
+    editable=True,
+    cell_selectable=True,
+    filter_action="native",
+    sort_action="native",
+    style_table={"overflowX": "auto"},
+    #style_header={"backgroundColor": "yellow"},
+    style_data_conditional=[
+        {
+            'if': {
+                'state': 'active'  # 'active' | 'selected'
+            },
+            'backgroundColor': 'rgba(var(--bs-primary-rgb), 0.2)',
+            'border': '1px solid rgb(0, 116, 217)'
+        }
+
+    ],
+)
 
 # ---- DCC Sampler -----------------------------------------------
 dcc_dropdown = html.Div([
@@ -50,9 +76,22 @@ range_slider  = html.Div([
 ])
 input = html.Div([
     dcc.Input(
-        placeholder='Enter a value...',
+        placeholder='This is a dash dcc input...',
         type='text',
-        value=''
+        value='',
+        className='mt-4 mb-2'
+    ),
+    dcc.Input(
+        placeholder='This is a dash dcc input with className="form-control" ...',
+        type='text',
+        value='',
+        className='form-control'
+    ),
+    dbc.Input(
+        placeholder='This is a dbc input...',
+        type='text',
+        value='',
+        className='my-2'
     )
 ])
 textarea = html.Div([
@@ -137,8 +176,6 @@ dcc_sampler = [
             dcc_dropdown, multi_dropdown,
             dcc_slider, range_slider,
             input, textarea,
-            radioitems, dcc_checklist,
-            dcc_tabs
         ]
     )
 ]
@@ -153,7 +190,7 @@ dcc_sampler = [
 slider = util.make_range_slider(df.year.unique(), id="years")
 checklist = util.make_checklist(df.continent.unique(), id="continents")
 dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
-table = util.make_datatable(df, id="table")
+#table = util.make_datatable(df, id="table")
 
 controls = html.Div(
     [
@@ -172,7 +209,7 @@ tabs = dbc.Tabs(
     [
         tpl.Tab([dcc.Graph(id="line-chart")], label="Graph"),
         tpl.Tab([table], label="Table"),
-        tpl.Tab(dcc_sampler, label="dcc components")
+        tpl.Tab(dcc_sampler, label="dcc components", className="dbc")
     ]
 )
 

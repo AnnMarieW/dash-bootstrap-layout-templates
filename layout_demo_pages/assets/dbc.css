@@ -2,19 +2,25 @@
  *  This stylesheet defines the dbc class to help improve they style of  Dash components
  *  when using a Bootstrap stylesheet
  *
- */
+ *  Tips - for tabs, use dbc.Tabs, or for dcc.Tabs, use style and className in the component definition
+ *       - to style a dcc.Input like a dbc.Input, use className='form-control'
+ *
+ *  todo
+      - border box color for dropdowns when dropdown is open - (currently looks bad in dark themes)
+      - fix arrow in input fields in date range picker
+
+  */
 
 
 
 
-/* ----------------------------------
- *  Dropdown
- *     Black background for a dark theme
- */
+/* --------- dropdown ------------------------------------------ */
+
 
 /* input box */
 .dbc .Select-control {
   background-color: var(--bs-body-bg) !important;
+  border: solid rgba(100, 100, 100, 0.4) 2px !important;
 }
 
 /* changes the text color of input box */
@@ -22,16 +28,11 @@
   color: var(--bs-body-color) !important;
 }
 
+
 .dbc .Select input {
   color: var(--bs-body-color);
 }
 
-.dbc .Select--single > .Select-control .Select-value,
-.Select-placeholder {
-  border: 1px solid grey !important;
-  border-radius: 4px !important;
-
-}
 
 /* dropdown menu options */
 .dbc .VirtualizedSelectOption {
@@ -39,10 +40,11 @@
   color: var(--bs-body-color);
 }
 
+
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {
-  background-color: var(--bs-body-bg);
-  opacity: .7;
+  background-color: rgba(100, 100, 100, 0.2);
+  color: black;
 }
 
 /* border on focus - default is blue
@@ -50,17 +52,15 @@
  */
 .dbc .is-focused:not(.is-open) > .Select-control {
   border-color: var(--bs-primary) !important;
-  /* box-shadow: 0 0 0 0.2rem rgba(223, 105, 26, 0.25); /* lighter primary */
-  /* note - dropdowns look better with a box shadow.  If you are not using a theme switcher, making
-  * the box shadow a lighter shade of the primary color looks nice.  (for now it's removed)
-  */
-  box-shadow: none !important;
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.2);
 }
 
 
 /* primary  this colors the input box text and x  of multi */
 .dbc .Select--multi .Select-value {
   color: var(--bs-body-color);
+  background-color: rgba(var(--bs-primary-rgb), 0.2);
+  border-color: rgba(var(--bs-primary-rgb), 0.6) !important;
 }
 
 /* ---------------------------------------
@@ -69,15 +69,24 @@
 .dbc textarea {
   background-color: var(--bs-body-bg) !important;
   color: var(--bs-body-color) !important;
+  border-color: rgba(100, 100, 100, 0.4) !important;
 }
 
-/* ----------------------------------------
- *  input boxes including editable fields in DataTable and the pagination buttons
- */
-.dbc input input.current-page {}
+
 
 /* Use this classname for dcc.Input */
-.dbc input {}
+.dbc input {
+  color: var(--bs-body-color) !important;
+  background-color: var(--bs-body-bg) !important;
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+
+.dbc input::placeholder {
+  color: var(--bs-body-color) !important;
+  background-color: var(--bs-body-bg) !important;
+}
+
 
 /* ---------------------------------------
  * Datatable
@@ -93,6 +102,7 @@
 dbc .Select-menu-outer {
   display: block !important;
 }
+.dash-table-container .dropdown { position: static; }
 
 /*
  *  sort arrow and delete icons in the DataTable header - changes pink color
@@ -119,24 +129,21 @@ dbc .Select-menu-outer {
   color: var(--bs-primary) !important;
 }
 
-/* table body */
-.dbc .dash-spreadsheet td {
-  font-family: var(--bs-font-family-sans-serif);
-  background-color: var(--bs-body-bg) color: var(--bs-body-color) --border: var(--bs-gray);
-  --border-width: .5px;
-}
 
-.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
-  font-family: var(--bs-font-family-sans-serif);
+/* table details */
+body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
   background-color: var(--bs-body-bg);
-   !important color: var(--bs-body-color);
-  --accent: var(--bs-primary) !important --border: var(--bs-gray);
+  color: var(--bs-body-color);
+  border-color: rgba(100, 100, 100, 0.4) !important;
 }
 
-.dbc dash-spreadsheet th {
-  background-color: yellow;
-   !important
+/* table header */
+body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: rgba(100, 100, 100, 0.4) !important;
 }
+
 
 /* filter row in the header */
 .dbc .dash-spreadsheet .dash-filter {
@@ -148,56 +155,84 @@ dbc .Select-menu-outer {
 
 /* tooltips - makes text readable in dark themes */
 .dbc .dash-table-tooltip {
-  color: black
+  background-color: var(--bs-gray-500) !important;
+  color: var(--bs-body-color)
 }
 
-
-/* row hover */
-.dbc.dbc_row_hover .dash-spreadsheet td.dash-cell {
-  border-color: lightgrey !important;
+/* pagination */
+.dbc .dash-table-container .previous-next-container .page-number .current-page-container .current-page-shadow {
+  background-color: transparent;
+  color: var(--bs-body-color) !important;
 }
 
-.dbc.dbc_row_hover .dash-spreadsheet tr:hover td.dash-cell {
-  border-color: lightgrey !important;
-  border-width: 1.5px !important;
-  background-color: var(--bs-light) !important;
-  color: var(--bs-dark) !important;
+.dbc .dash-table-container .previous-next-container .page-number .current-page-container input.current-page {
+  background-color: transparent;
 }
 
-
-body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-  border-color: #d3d3d3;
+.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
+  border-collapse: inherit;
+  border-spacing: unset;
 }
+
+/* style active cell */
+.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
+  background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+  outline: 1px solid var(--bs-primary);
+}
+
+/* style active cell when cell is  editable */
+.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner input:not([type=radio]):not([type=checkbox]) {
+  background-color: transparent !important;
+}
+
+/* style selected cells */
+.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.cell--selected {
+  background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
+}
+
+/* style dropdown */
+.dbc .dash-table-container .dash-spreadsheet .Select-menu-outer {
+	    background-color : var(--bs-gray-500);
+	    border-color: rgba(100, 100, 100, 0.4)
+    }
+
+.dbc .dash-table-container .dash-spreadsheet .Select-option:hover {
+        background-color : rgba(var(--bs-gray-500), .4);
+    }
+
+.dbc .dash-table-container .dash-spreadsheet .Select-option {
+        background-color : rgba(var(--bs-gray-500), .4);
+    }
+
 
 
 /*------------------------------------
  * Sliders - makes the slider the "primary color"
  */
-
-.dbc .rc-slider-handle {
-  border: 0;
-  background-color: var(--bs-primary)
-}
-
-.dbc .rc-slider-rail {
-  background-color: #ededed;
-  /* grey */
-}
-
 .dbc .rc-slider-track {
-  background-color: var(--bs-primary)
+  background-color: var(--bs-primary);
 }
-
-.dbc .rc-slider-dot {
-  border: 0;
-  background-color: #ededed;
-  /* grey */
+.dbc .rc-slider-handle {
+  border: solid 3px var(--bs-primary);
+  background-color: var(--bs-body-bg);
 }
-
-.dbc .rc-slider-dot.rc-slider-dot-active {
-  background-color: var(--bs-primary)
+.dbc .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
+}
+.dbc .rc-slider-handle-click-focused:focus {
+  border-color: var(--bs-primary);
+  box-shadow: unset;
+}
+.dbc .rc-slider-handle:hover {
+  border-color: rgba(var(--bs-primary-rgb), 0.25);
+}
+.dbc .rc-slider-handle:active {
+  border-color: rgba(var(--bs-primary-rgb), 0.25);
+  box-shadow: 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
+}
+.dbc .rc-slider-dot-active {
+  border-color: var(--bs-primary);
 }
 
 /* label color */
@@ -207,69 +242,95 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 
 /* Makes the active label color different than default label color */
 .dbc .rc-slider-mark-text.rc-slider-mark-text-active {
-  /* font-weight: 800 */
+   font-weight: 800
 }
 
 
 
-/* ----------------------------------
- * Tabs
-*/
-.dbc .tab-pane .card {
-  border-top-left-radius: 0;
+/* ------------ datepickers -----------------------*/
+
+.dbc .DateInput_input {
+    background-color: var(--bs-body-bg);
+    font-family: var(--bs-body-font-family);
 }
 
-.dbc .nav-tabs {
-  border-bottom-width: 0 !important;
+.dbc .DayPicker {
+  background-color: var(--bs-body-bg);
 }
 
-.dbc .nav-link {
-  border-width: 0.5px !important;
-  border-color: rgba(100, 100, 100, 0.4);
-  color: var(--bs-primary);
+.dbc .DayPickerNavigation_button {
+    border: border-color: rgba(100, 100, 100, 0.4);
+    background-color: transparent;
+    }
+
+.dbc .CalendarMonth_caption {
+  color: var(--bs-body-color)
+  font-weight: bold
 }
 
-.dbc .nav-link.active {
-  background-color: var(--bs-primary) color: white;
-  border-color: rgba(100, 100, 100, 0.4);
+.dbc date-picker-range {
+  background-color: var(--bs-body-bg);
 }
 
-.dbc .nav-item {
-  margin-right: 0 !important;
+.dbc .CalendarMonthGrid {
+    background-color: var(--bs-body-bg);
+  }
+
+.dbc .CalendarMonth {
+    background-color: var(--bs-body-bg);
+  }
+
+.dbc .CalendarDay__default {
+    color: var(--bs-body-color);
+    border-color: rgba(100, 100, 100, 0.4)!important ;
+    background-color: var(--bs-body-bg) ;
 }
 
-.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
-  border-color: var(--bs-primary);
-  background-color: rgba(var(--bs-primary-rgb), 0.5);
-  outline: 1px solid var(--bs-primary);
+.dbc .CalendarDay__default:hover {
+    background: rgba(var(--bs-primary-rgb), 0.3);
+      color: white;
+}
+
+
+.dbc .CalendarDay__selected {
+      background: var(--bs-primary);
+      border: 1px  var(--bs-primary);
+      color: white;
+}
+
+.dbc .CalendarDay__selected:hover {
+      background: var(--bs-primary);
+      border: 1px  var(--bs-primary);
+      color: white;
+    }
+
+dbc. .CalendarDay__blocked_out_of_range{
+      background: var(--bs-primary);
+      border: 1px  var(--bs-primary);
+      color: white;
 
 }
 
-.dbc input::placeholder {
-  ;
-  color: var(--bs-body-color) !important;
+.dbc .CalendarDay__hovered_span {
+      background: rgba(var(--bs-primary-rgb), 0.2);
+      color: white;
+    }
 
+.dbc .CalendarDay__hovered_span:hover {
+      background: rgba(var(--bs-primary-rgb), 0.2);
+      color: white;
+    }
+
+.dbc .CalendarDay__selected_span {
+      background: var(--bs-primary);
+      color: white;
+    }
+
+.dbc .DayPickerKeyboardShortcuts__show {
+        display: none;
+    }
+
+.dbc .DayPickerKeyboardShortcuts_show__bottomRight {
+  display:none;
 }
 
-.dash-table-container .previous-next-container .page-number .current-page-container .current-page-shadow {
-  background-color: transparent;
-  color: var(--bs-body-color) !important;
-}
-
-.dash-table-container .previous-next-container .page-number .current-page-container input.current-page {
-  background-color: transparent;
-}
-
-.dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
-
-  border-color: rgba(100, 100, 100, 0.4) !important;
-}
-
-body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
-  border-color: rgba(100, 100, 100, 0.4) !important;
-}
-
-.dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner table {
-  border-collapse: inherit;
-  border-spacing: unset;
-}
