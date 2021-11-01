@@ -55,11 +55,21 @@ class ThemeChangerAIO(html.Div):
         if aio_id is None:
             aio_id = str(uuid.uuid4())
 
+        if "options" not in radio_props:
+            radio_props["options"] = [
+                {
+                    "label": str(i),
+                    "label_id": "theme-switch-label",
+                    "value": dbc_themes_url[i],
+                }
+                for i in dbc_themes_url
+            ]
+            # assign id to dark themes in order to apply css
+            for option in radio_props["options"]:
+                if option["label"].lower() in dbc_dark_themes:
+                    option["label_id"] = "theme-switch-label-dark"
 
-        radio_props = radio_props.copy()
-        if 'options' not in radio_props:
-            radio_props['options'] =  [{"label": str(i), "value": dbc_themes_url[i]} for i in dbc_themes_url]
-            radio_props['value'] = dbc_themes_url["BOOTSTRAP"]
+            radio_props["value"] = dbc_themes_url["BOOTSTRAP"]
 
         button_props = button_props.copy()
         if 'children' not in button_props:
