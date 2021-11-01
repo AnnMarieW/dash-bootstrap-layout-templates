@@ -61,8 +61,18 @@ class ThemeChangerAIO(html.Div):
         radio_props = radio_props.copy()
         if "options" not in radio_props:
             radio_props["options"] = [
-                {"label": str(i), "value": dbc_themes_url[i]} for i in dbc_themes_url
+                {
+                    "label": str(i),
+                    "label_id": "theme-switch-label",
+                    "value": dbc_themes_url[i],
+                }
+                for i in dbc_themes_url
             ]
+
+            # assign id to dark themes in order to apply css
+            for option in radio_props["options"]:
+                if option["label"].lower() in dbc_dark_themes:
+                    option["label_id"] = "theme-switch-label-dark"
             radio_props["value"] = dbc_themes_url["BOOTSTRAP"]
 
         button_props = button_props.copy()
@@ -78,10 +88,6 @@ class ThemeChangerAIO(html.Div):
         offcanvas_props = offcanvas_props.copy()
         if "children" not in offcanvas_props:
             offcanvas_props["children"] = [
-                html.P(
-                    "Dark themes are: CYBORG, DARKLY, SLATE, SOLAR, SUPERHERO",
-                    className="small",
-                ),
                 dbc.RadioItems(id=self.ids.radio(aio_id), **radio_props),
             ]
         if "title" not in offcanvas_props:
@@ -132,6 +138,7 @@ class ThemeChangerAIO(html.Div):
 
 # ----------  Slide Deck ------------------------------------------------------
 
+
 class SlideDeckAIO(html.Div):
     # pattern matching callback ids
     class ids:
@@ -150,15 +157,12 @@ class SlideDeckAIO(html.Div):
             "subcomponent": "store",
             "aio_id": aio_id,
         }
+
     ids = ids
 
     # define properties of SlideDeckAIO
     def __init__(
-        self,
-        slide_deck={},
-        pagination_props={},
-        title=" ",
-        aio_id=None,
+        self, slide_deck={}, pagination_props={}, title=" ", aio_id=None,
     ):
         """
         SlideDeckAIO is an All-in-One component to display page content by page number. It is composed
@@ -212,7 +216,7 @@ class SlideDeckAIO(html.Div):
         super().__init__(
             [
                 html.Div(slide_deck_controls),
-                html.Div( # slide deck output
+                html.Div(  # slide deck output
                     slide_deck[pagination_props["active_page"]],
                     id=self.ids.page_content(aio_id),
                 ),
@@ -227,4 +231,3 @@ class SlideDeckAIO(html.Div):
     )
     def show_page(active_page, sl_deck):
         return sl_deck[str(active_page)]
-

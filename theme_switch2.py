@@ -15,15 +15,13 @@ controls = tpl.card([(range_slider, "Select petal width:") ])
 
 app.layout = tpl.layout(
     [tpl.card([dcc.Graph(id="graph")]), controls, ThemeChangerAIO(aio_id="theme")],
-    id="layout",
-    title="Explore The Iris Dataset"
-)
+    title="Explore The Iris Dataset",
+    className='dbc')
 
 
 
 @app.callback(
     Output("graph", "figure"),
-    Output("layout", "className"),
     Input("rs", "value"),
     Input(ThemeChangerAIO.ids.radio("theme"), "value"),
 )
@@ -32,7 +30,7 @@ def update(slider_range, theme):
     m = (df.petal_width > a) & (df.petal_width < b)
 
     template = url_dbc_themes[theme].lower()
-    class_name = ("dbc-dark" if template in dbc_dark_themes else "dbc-light")
+
 
     fig = px.scatter(
         df[m],
@@ -43,7 +41,7 @@ def update(slider_range, theme):
         hover_data=["petal_width"],
         template=template
     )
-    return fig, class_name
+    return fig
 
 if __name__ == "__main__":
     app.run_server(debug=True)
