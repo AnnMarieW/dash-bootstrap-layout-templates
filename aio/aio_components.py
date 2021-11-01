@@ -1,8 +1,7 @@
-#
+
 from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
 import dash_bootstrap_components as dbc
 import uuid
-import importlib
 
 dbc_themes_url = {
     item: getattr(dbc.themes, item)
@@ -133,6 +132,37 @@ class ThemeChangerAIO(html.Div):
         """,
         Output(ids.dummy_div(MATCH), "children"),
         Input(ids.radio(MATCH), "value"),
+    )
+
+    # This callback is used to bundle custom CSS with the AIO component
+    # The Input and Output can be any dummy property. The Input is used to trigger the
+    # callback when the app starts. The clientside function adds the css to a <style>
+    # element and appends it to the <head>.  Dash requires callbacks to have an Output
+    # even if there is nothing to update.
+    #
+    clientside_callback(
+        """
+        function() {
+            var style = document.createElement('style')
+            const aio_css = `
+              #theme-switch-label-dark {
+              background-color: black;
+              color: white;
+              width: 100px
+            }
+            
+            #theme-switch-label {
+              background-color: white;
+              color: black;
+              width: 100px
+            `
+            
+            style.innerText = aio_css            
+            document.head.appendChild(style)
+        }
+        """,
+        Output(ids.dummy_div(MATCH), "role"),
+        Input(ids.dummy_div(MATCH), "role")
     )
 
 

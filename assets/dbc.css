@@ -13,7 +13,6 @@
 
 
 
-
 /* --------- dropdown ------------------------------------------ */
 
 
@@ -78,7 +77,6 @@
 .dbc input {
   color: var(--bs-body-color) !important;
   background-color: var(--bs-body-bg) !important;
-  border-color: rgba(100, 100, 100, 0.4) !important;
 }
 
 
@@ -99,10 +97,13 @@
 }
 
 /* fixes  when the table dropdown doesn't drop down */
-dbc .Select-menu-outer {
+.dbc .Select-menu-outer {
   display: block !important;
 }
-.dash-table-container .dropdown { position: static; }
+
+.dash-table-container .dropdown {
+  position: static;
+}
 
 /*
  *  sort arrow and delete icons in the DataTable header - changes pink color
@@ -153,7 +154,7 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   --border: var(--bs-gray);
 }
 
-/* tooltips - makes text readable in dark themes */
+/* tooltips  */
 .dbc .dash-table-tooltip {
   background-color: var(--bs-gray-500) !important;
   color: var(--bs-body-color)
@@ -174,35 +175,35 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   border-spacing: unset;
 }
 
-/* style active cell */
+/* active cell */
 .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.focused {
   background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
   outline: 1px solid var(--bs-primary);
 }
 
-/* style active cell when cell is  editable */
+/* active cell when cell is  editable */
 .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner input:not([type=radio]):not([type=checkbox]) {
   background-color: transparent !important;
 }
 
-/* style selected cells */
+/* selected cells */
 .dbc .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td.cell--selected {
   background-color: rgba(var(--bs-primary-rgb), 0.2) !important;
 }
 
-/* style dropdown */
+/*  dropdown inside datatable */
 .dbc .dash-table-container .dash-spreadsheet .Select-menu-outer {
-	    background-color : var(--bs-gray-500);
-	    border-color: rgba(100, 100, 100, 0.4)
-    }
+  background-color: var(--bs-gray-500);
+  border-color: rgba(100, 100, 100, 0.4)
+}
 
 .dbc .dash-table-container .dash-spreadsheet .Select-option:hover {
-        background-color : rgba(var(--bs-gray-500), .4);
-    }
+  background-color: rgba(var(--bs-gray-500), .4);
+}
 
 .dbc .dash-table-container .dash-spreadsheet .Select-option {
-        background-color : rgba(var(--bs-gray-500), .4);
-    }
+  background-color: rgba(var(--bs-gray-500), .4);
+}
 
 
 
@@ -212,25 +213,31 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 .dbc .rc-slider-track {
   background-color: var(--bs-primary);
 }
+
 .dbc .rc-slider-handle {
   border: solid 3px var(--bs-primary);
   background-color: var(--bs-body-bg);
 }
+
 .dbc .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
   border-color: var(--bs-primary);
   box-shadow: 0 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
 }
+
 .dbc .rc-slider-handle-click-focused:focus {
   border-color: var(--bs-primary);
   box-shadow: unset;
 }
+
 .dbc .rc-slider-handle:hover {
   border-color: rgba(var(--bs-primary-rgb), 0.25);
 }
+
 .dbc .rc-slider-handle:active {
   border-color: rgba(var(--bs-primary-rgb), 0.25);
   box-shadow: 0 0 5px rgba(var(--bs-primary-rgb), 0.25);
 }
+
 .dbc .rc-slider-dot-active {
   border-color: var(--bs-primary);
 }
@@ -242,16 +249,51 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 
 /* Makes the active label color different than default label color */
 .dbc .rc-slider-mark-text.rc-slider-mark-text-active {
-   font-weight: 800
+  font-weight: 800
 }
-
 
 
 /* ------------ datepickers -----------------------*/
 
+.dbc .SingleDatePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+  background-color: transparent !important;
+}
+
+.dbc .DateInput_input__focused {
+  border-bottom: 1px solid rgba(100, 100, 100, 0.4) !important;
+}
+
+.dbc .DateRangePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+.dbc .DateInput_fangStroke {
+  stroke: rgba(100, 100, 100, 0.4);
+  fill: transparent;
+}
+
+.dbc .DateRangePickerInput {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow svg {
+  fill: var(--bs-body-color) !important;
+}
+
+.dbc .DateInput_fangShape {
+  fill: var(--bs-body-bg);
+}
+
 .dbc .DateInput_input {
-    background-color: var(--bs-body-bg);
-    font-family: var(--bs-body-font-family);
+  background-color: var(--bs-body-bg);
+  font-family: var(--bs-body-font-family);
 }
 
 .dbc .DayPicker {
@@ -259,13 +301,12 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 }
 
 .dbc .DayPickerNavigation_button {
-    border: border-color: rgba(100, 100, 100, 0.4);
-    background-color: transparent;
-    }
+  border: border-color: rgba(100, 100, 100, 0.4);
+  background-color: transparent;
+}
 
 .dbc .CalendarMonth_caption {
-  color: var(--bs-body-color)
-  font-weight: bold
+  color: var(--bs-body-color) font-weight: bold
 }
 
 .dbc date-picker-range {
@@ -273,77 +314,62 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 }
 
 .dbc .CalendarMonthGrid {
-    background-color: var(--bs-body-bg);
-  }
+  background-color: var(--bs-body-bg);
+}
 
 .dbc .CalendarMonth {
-    background-color: var(--bs-body-bg);
-  }
+  background-color: var(--bs-body-bg);
+}
 
 .dbc .CalendarDay__default {
-    color: var(--bs-body-color);
-    border-color: rgba(100, 100, 100, 0.4)!important ;
-    background-color: var(--bs-body-bg) ;
+  color: var(--bs-body-color);
+  border-color: rgba(100, 100, 100, 0.4) !important;
+  background-color: var(--bs-body-bg);
 }
 
 .dbc .CalendarDay__default:hover {
-    background: rgba(var(--bs-primary-rgb), 0.3);
-      color: white;
+  background: rgba(var(--bs-primary-rgb), 0.3);
+  color: white;
 }
 
-
 .dbc .CalendarDay__selected {
-      background: var(--bs-primary);
-      border: 1px  var(--bs-primary);
-      color: white;
+  background: var(--bs-primary);
+  border: 1px var(--bs-primary);
+  color: white;
 }
 
 .dbc .CalendarDay__selected:hover {
-      background: var(--bs-primary);
-      border: 1px  var(--bs-primary);
-      color: white;
-    }
+  background: var(--bs-primary);
+  border: 1px var(--bs-primary);
+  color: white;
+}
 
-dbc. .CalendarDay__blocked_out_of_range{
-      background: var(--bs-primary);
-      border: 1px  var(--bs-primary);
-      color: white;
+dbc. .CalendarDay__blocked_out_of_range {
+  background: var(--bs-primary);
+  border: 1px var(--bs-primary);
+  color: white;
 
 }
 
 .dbc .CalendarDay__hovered_span {
-      background: rgba(var(--bs-primary-rgb), 0.2);
-      color: white;
-    }
+  background: rgba(var(--bs-primary-rgb), 0.2);
+  color: white;
+}
 
 .dbc .CalendarDay__hovered_span:hover {
-      background: rgba(var(--bs-primary-rgb), 0.2);
-      color: white;
-    }
+  background: rgba(var(--bs-primary-rgb), 0.2);
+  color: white;
+}
 
 .dbc .CalendarDay__selected_span {
-      background: var(--bs-primary);
-      color: white;
-    }
+  background: var(--bs-primary);
+  color: white;
+}
 
 .dbc .DayPickerKeyboardShortcuts__show {
-        display: none;
-    }
+  display: none;
+}
 
 .dbc .DayPickerKeyboardShortcuts_show__bottomRight {
-  display:none;
-}
-
-/* -------- for aio theme switch component ---------- */
-#theme-switch-label-dark {
-  background-color: black;
-  color: white;
-  width: 100px
-}
-
-
-#theme-switch-label {
-  background-color: white;
-  color: black;
-  width: 100px
+  display: none;
 }
