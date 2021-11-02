@@ -39,11 +39,10 @@
   color: var(--bs-body-color);
 }
 
-
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {
   background-color: rgba(100, 100, 100, 0.2);
-  color: black;
+  color: var(--bs-body-color);
 }
 
 /* border on focus - default is blue
@@ -252,6 +251,12 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   font-weight: 800
 }
 
+/*-------------dropdown---------------------------*/
+.dbc .Select-menu-outer {
+  background-color: var(--bs-body-bg);
+  border: 1px solid rgba(100, 100, 100, 0.4) !important;
+  border-top-color: rgba(100, 100, 100, 0.4) !important;
+}
 
 /* ------------ datepickers -----------------------*/
 
