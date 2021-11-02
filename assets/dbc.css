@@ -2,13 +2,9 @@
  *  This stylesheet defines the dbc class to help improve they style of  Dash components
  *  when using a Bootstrap stylesheet
  *
- *  Tips - for tabs, use dbc.Tabs, or for dcc.Tabs, use style and className in the component definition
- *       - to style a dcc.Input like a dbc.Input, use className='form-control'
+ *  Tips - for dcc.Tabs, use style and className in the component definition (or use dbc.Tabs instead)
+ *       - for dcc.Input use className='form-control'  This styles it like dbc.Input
  *
- *  todo
-      - border box color for dropdowns when dropdown is open - (currently looks bad in dark themes)
-      - fix arrow in input fields in date range picker
-
   */
 
 
@@ -61,6 +57,7 @@
   background-color: rgba(var(--bs-primary-rgb), 0.2);
   border-color: rgba(var(--bs-primary-rgb), 0.6) !important;
 }
+
 
 /* ---------------------------------------
  * textarea
@@ -344,7 +341,7 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   color: white;
 }
 
-dbc. .CalendarDay__blocked_out_of_range {
+.dbc .CalendarDay__blocked_out_of_range {
   background: var(--bs-primary);
   border: 1px var(--bs-primary);
   color: white;
