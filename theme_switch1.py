@@ -29,7 +29,7 @@ table = dash_table.DataTable(
            'backgroundColor': 'rgba(var(--bs-primary-rgb), 0.2)',
            'border': '1px solid rgb(0, 116, 217)'
            }
-        
+
         ],
     )
 
@@ -131,10 +131,14 @@ datepicker_range =html.Div([
         end_date_placeholder_text='Select a date!'
     )
 ])
+
+colors = {"background": "rgba(var(--bs-body-rgb), 0.04)", "border": "rgba(100, 100, 100, 0.4)", "primary": "var(--bs-primary)"}
+selected = {"backgroundColor": "var(--bs-body-bg)", "color": "var(--bs-body-color"}
+
 dcc_tabs = html.Div([
-    dcc.Tabs(id="tabs", value='tab-1', children=[
-        dcc.Tab(label='Tab one', value='tab-1'),
-        dcc.Tab(label='Tab two', value='tab-2'),
+    dcc.Tabs(id="tabs", value='tab-1', colors=colors, children=[
+        dcc.Tab(label='Tab one', value='tab-1', children="tab 1", selected_style=selected),
+        dcc.Tab(label='Tab two', value='tab-2', children="tab 2", selected_style=selected),
     ]),
     html.Div(id='tabs-content')
 ])
