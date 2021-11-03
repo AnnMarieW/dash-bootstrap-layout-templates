@@ -39,11 +39,10 @@
   color: var(--bs-body-color);
 }
 
-
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {
   background-color: rgba(100, 100, 100, 0.2);
-  color: black;
+  color: var(--bs-body-color);
 }
 
 /* border on focus - default is blue
@@ -252,6 +251,44 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   font-weight: 800
 }
 
+/* ------------ datepickers -----------------------*/
+
+.dbc .SingleDatePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+  background-color: transparent !important;
+}
+
+.dbc .DateInput_input__focused {
+  border-bottom: 1px solid rgba(100, 100, 100, 0.4) !important;
+}
+
+
+.dbc .DateRangePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+.dbc .DateInput_fangStroke {
+  stroke: rgba(100, 100, 100, 0.4);
+  fill: transparent;
+}
+
+.dbc .DateRangePickerInput {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow svg {
+  fill: var(--bs-body-color) !important;
+}
+
+.dbc .DateInput_fangShape {
+  fill: var(--bs-body-bg);
+}
 
 /* ------------ datepickers -----------------------*/
 
@@ -374,7 +411,6 @@ dbc. .CalendarDay__blocked_out_of_range {
   display: none;
 }
 
-
 /* -------- for aio theme switch component ---------- */
 #theme-switch-label-dark {
   background-color: black;
@@ -386,3 +422,11 @@ dbc. .CalendarDay__blocked_out_of_range {
   background-color: white;
   color: black;
   width: 100px
+}
+
+/*-------------dropdown---------------------------*/
+.dbc .Select-menu-outer {
+  background-color: var(--bs-body-bg);
+  border: 1px solid rgba(100, 100, 100, 0.4) !important;
+  border-top-color: rgba(100, 100, 100, 0.4) !important;
+}
