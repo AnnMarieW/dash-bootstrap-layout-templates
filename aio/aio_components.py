@@ -84,10 +84,6 @@ class ThemeChangerAIO(html.Div):
         offcanvas_props = offcanvas_props.copy()
         if 'children' not in offcanvas_props:
             offcanvas_props['children'] = [
-                html.P(
-                    "Dark themes are: CYBORG, DARKLY, SLATE, SOLAR, SUPERHERO",
-                    className="small",
-                ),
                 dbc.RadioItems(id=self.ids.radio(aio_id), **radio_props),
             ]
         if 'title' not in offcanvas_props:

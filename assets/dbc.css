@@ -262,6 +262,45 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   border-bottom: 1px solid rgba(100, 100, 100, 0.4) !important;
 }
 
+
+.dbc .DateRangePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+}
+
+.dbc .DateInput_fangStroke {
+  stroke: rgba(100, 100, 100, 0.4);
+  fill: transparent;
+}
+
+.dbc .DateRangePickerInput {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow {
+  background-color: var(--bs-body-bg);
+
+}
+
+.dbc .DateRangePickerInput_arrow svg {
+  fill: var(--bs-body-color) !important;
+}
+
+.dbc .DateInput_fangShape {
+  fill: var(--bs-body-bg);
+}
+
+/* ------------ datepickers -----------------------*/
+
+.dbc .SingleDatePickerInput__withBorder {
+  border-color: rgba(100, 100, 100, 0.4) !important;
+  background-color: transparent !important;
+}
+
+.dbc .DateInput_input__focused {
+  border-bottom: 1px solid rgba(100, 100, 100, 0.4) !important;
+}
+
 .dbc .DateRangePickerInput__withBorder {
   border-color: rgba(100, 100, 100, 0.4) !important;
 }
@@ -371,7 +410,6 @@ dbc. .CalendarDay__blocked_out_of_range {
 .dbc .DayPickerKeyboardShortcuts_show__bottomRight {
   display: none;
 }
-
 
 /* -------- for aio theme switch component ---------- */
 #theme-switch-label-dark {
