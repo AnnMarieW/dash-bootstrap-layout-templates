@@ -251,13 +251,6 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   font-weight: 800
 }
 
-/*-------------dropdown---------------------------*/
-.dbc .Select-menu-outer {
-  background-color: var(--bs-body-bg);
-  border: 1px solid rgba(100, 100, 100, 0.4) !important;
-  border-top-color: rgba(100, 100, 100, 0.4) !important;
-}
-
 /* ------------ datepickers -----------------------*/
 
 .dbc .SingleDatePickerInput__withBorder {
@@ -391,3 +384,11 @@ dbc. .CalendarDay__blocked_out_of_range {
   background-color: white;
   color: black;
   width: 100px
+}
+
+/*-------------dropdown---------------------------*/
+.dbc .Select-menu-outer {
+  background-color: var(--bs-body-bg);
+  border: 1px solid rgba(100, 100, 100, 0.4) !important;
+  border-top-color: rgba(100, 100, 100, 0.4) !important;
+}
