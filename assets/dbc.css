@@ -72,7 +72,7 @@
 
 
 /* Use this classname for dcc.Input */
-.dbc input {
+.dbc input:not([type=radio]):not([type=checkbox]) {
   color: var(--bs-body-color) !important;
   background-color: var(--bs-body-bg) !important;
 }
@@ -83,6 +83,11 @@
   background-color: var(--bs-body-bg) !important;
 }
 
+/* makes False position on dbc.Switch the primary color
+.dbc .form-switch .form-check-input:checked {
+  background-color: var(--bs-primary) !important;
+}
+*/
 
 /* ---------------------------------------
  * Datatable

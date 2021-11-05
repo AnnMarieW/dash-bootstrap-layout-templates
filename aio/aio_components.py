@@ -43,7 +43,6 @@ class ThemeChangerAIO(html.Div):
         radio_props={},
         button_props={},
         offcanvas_props={},
-        dummy_div_props={},
         aio_id=None,
     ):
         """
@@ -99,13 +98,11 @@ class ThemeChangerAIO(html.Div):
         if "style" not in offcanvas_props:
             offcanvas_props["style"] = {"width": 235}
 
-        dummy_div_props["children"] = None
-
         super().__init__(
             [
                 dbc.Button(id=self.ids.button(aio_id), **button_props),
                 dbc.Offcanvas(id=self.ids.offcanvas(aio_id), **offcanvas_props),
-                html.Div(id=self.ids.dummy_div(aio_id), **dummy_div_props),
+                html.Div(id=self.ids.dummy_div(aio_id)),
             ]
         )
 
