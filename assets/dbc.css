@@ -2,10 +2,9 @@
  *  This stylesheet defines the dbc class to help improve they style of  Dash components
  *  when using a Bootstrap stylesheet
  *
- *  Tips - for dcc.Tabs, use style and className in the component definition (or use dbc.Tabs instead)
- *       - for dcc.Input use className='form-control'  This styles it like dbc.Input
+ *  Tips - for dcc.Input use className='form-control'  This styles it like dbc.Input
  *
-  */
+ */
 
 
 
@@ -370,3 +369,18 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 .dbc .DayPickerKeyboardShortcuts_show__bottomRight {
   display: none;
 }
+
+/* ---------  tabs -------------------------*/
+
+.dbc .tab {
+    border-color: rgba(100, 100, 100, 0.4) !important;
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-body) !important;
+}
+
+.dbc .tab--selected {
+    border-top: 4px solid var(--bs-primary) !important;
+    background-color: var(--bs-body-bg) !important;
+    color: var(--bs-body-body) !important;
+}
+

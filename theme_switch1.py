@@ -176,6 +176,7 @@ dcc_sampler = [
             dcc_dropdown, multi_dropdown,
             dcc_slider, range_slider,
             input, textarea,
+            dcc_tabs
         ]
     )
 ]
