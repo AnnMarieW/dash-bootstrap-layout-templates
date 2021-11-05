@@ -2,7 +2,9 @@
  *  This stylesheet defines the dbc class to help improve they style of  Dash components
  *  when using a Bootstrap stylesheet
  *
- *  Tips - for dcc.Input use className='form-control'  This styles it like dbc.Input
+ *  Tips
+ *    - For dcc.Input use className='form-control'  This styles the dcc.Input like dbc.Input
+ *     -To change the style of dcc.Tab or dcc.Tabs within the component, delete the tabs section from this class.
  *
  */
 
@@ -370,8 +372,14 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   display: none;
 }
 
-/* ---------  tabs -------------------------*/
-
+/* ---------  tabs -------------------------
+*  Note - To style tabs here, it's necessary to use `!important` to override  the default style.
+*         This means it's not possible to change the border, background or text color
+*         with `style={..}` or `className={..} etc in the dcc.Tabs or dcc.Tab components.
+*
+*         If you prefer to set the style in the component definition, delete this section
+*
+*/
 .dbc .tab {
     border-color: rgba(100, 100, 100, 0.4) !important;
     background-color: var(--bs-body-bg) !important;
@@ -384,3 +392,4 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
     color: var(--bs-body-body) !important;
 }
 
+/* ------------------------------------------*/
