@@ -377,7 +377,8 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
   display: none;
 }
 
-/* ---------  tabs -------------------------
+
+/* ---------  dcc tabs -------------------------
 *  Note - To style tabs here, it's necessary to use `!important` to override  the default style.
 *         This means it's not possible to change the border, background or text color
 *         with `style={..}` or `className={..} etc in the dcc.Tabs or dcc.Tab components.
@@ -398,3 +399,4 @@ body .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner t
 }
 
 /* ------------------------------------------*/
+

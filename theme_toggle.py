@@ -8,7 +8,7 @@ from aio.aio_theme_switch import ThemeSwitchAIO, dbc_dark_themes, url_dbc_themes
 import layout_templates.util as util
 
 df = px.data.gapminder()
-app = Dash(__name__, external_stylesheets=[dbc.themes.CYBORG, dbc.themes.PULSE])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.themes.BOOTSTRAP])
 
 table = dash_table.DataTable(
     id="table",
