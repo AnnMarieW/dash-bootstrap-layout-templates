@@ -36,6 +36,7 @@ class ThemeSwitchAIO(html.Div):
     def __init__(
         self,
         themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP],
+        icons = ["fa fa-moon", "fa fa-sun"],
         switch_props={},
         aio_id=None,
     ):
@@ -54,15 +55,15 @@ class ThemeSwitchAIO(html.Div):
         if "value" not in switch_props:
             switch_props["value"] = True
         if "className" not in switch_props:
-            switch_props['className'] = "d-inline-block"
+            switch_props['className'] = "d-inline-block ms-1"
 
         super().__init__(
             [
                 html.Div(
                     [
-                        dbc.Label(className="fa fa-moon"),
+                        dbc.Label(className=icons[0]),
                         dbc.Switch(id=self.ids.switch(aio_id), **switch_props),
-                        dbc.Label(className="fa fa-sun"),
+                        dbc.Label(className=icons[1]),
                     ],
 
                 ),

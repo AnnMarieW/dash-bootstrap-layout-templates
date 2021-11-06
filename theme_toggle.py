@@ -199,7 +199,11 @@ controls = html.Div(
                 ("Select Years", slider),
             ],
         ),
-        ThemeSwitchAIO(aio_id="theme", themes=[dbc.themes.PULSE, dbc.themes.CYBORG], switch_props={"value":True}),
+        ThemeSwitchAIO(aio_id="theme",
+                       themes=[dbc.themes.PULSE, dbc.themes.CYBORG],
+                     #  icons=['fa fa-cat', 'fa fa-dog'],
+                       switch_props={"value":True}
+                       ),
     ]
 )
 
