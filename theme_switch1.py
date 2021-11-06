@@ -11,7 +11,7 @@ from collections import OrderedDict
 import pandas as pd
 
 df = px.data.gapminder()
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.themes.CYBORG])
 
 table = dash_table.DataTable(
     id="table",

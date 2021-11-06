@@ -8,7 +8,7 @@ from aio.aio_theme_switch import ThemeSwitchAIO, dbc_dark_themes, url_dbc_themes
 import layout_templates.util as util
 
 df = px.data.gapminder()
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
+app = Dash(__name__, external_stylesheets=[dbc.themes.CYBORG, dbc.themes.PULSE])
 
 table = dash_table.DataTable(
     id="table",
@@ -199,7 +199,7 @@ controls = html.Div(
                 ("Select Years", slider),
             ],
         ),
-        ThemeSwitchAIO(aio_id="theme", themes=[dbc.themes.CYBORG, dbc.themes.PULSE]),
+        ThemeSwitchAIO(aio_id="theme", themes=[dbc.themes.PULSE, dbc.themes.CYBORG], switch_props={"value":True}),
     ]
 )
 
@@ -228,7 +228,7 @@ def update_line_chart(indicator, continents, years, theme_switch):
     if continents == [] or indicator is None:
         return {}, []
 
-    template = "bootstrap" if theme_switch else "cyborg"
+    template = "pulse" if theme_switch else "cyborg"
 
     dff = df[df.year.between(years[0], years[1])]
     dff = dff[dff.continent.isin(continents)]

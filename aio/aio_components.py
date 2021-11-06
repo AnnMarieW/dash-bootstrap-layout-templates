@@ -116,16 +116,13 @@ class ThemeChangerAIO(html.Div):
             return not is_open
         return is_open
 
-    # Using 2 stylesheets with the delay reduces the  flicker when the theme changes
+    # Use 2 style sheet in the app to reduce the flicker when the theme changes
+    # example:  app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.themes.CYBORG])
     clientside_callback(
         """
-        function(url) {
-            // Select the stylesheets.
-            var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')
-            // Update the url of the main stylesheet.
-            stylesheets[stylesheets.length - 1].href = url
-            // Delay update of the url of the buffer stylesheet.
-            setTimeout(function() {stylesheets[0].href = url;}, 100);
+        function(url) {            
+            var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')                  
+            stylesheets[stylesheets.length - 1].href = url           
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),

@@ -35,7 +35,7 @@ class ThemeSwitchAIO(html.Div):
 
     def __init__(
         self,
-        themes = [dbc.themes.BOOTSTRAP, dbc.themes.CYBORG],
+        themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP],
         switch_props={},
         aio_id=None,
     ):
@@ -51,15 +51,17 @@ class ThemeSwitchAIO(html.Div):
             aio_id = str(uuid.uuid4())
 
         switch_props = switch_props.copy()
-        # if "value" not in switch_props:
-        #     switch_props["value"] = True
+        if "value" not in switch_props:
+            switch_props["value"] = True
+        if "className" not in switch_props:
+            switch_props['className'] = "d-inline-block"
 
         super().__init__(
             [
                 html.Div(
                     [
                         dbc.Label(className="fa fa-moon"),
-                        dbc.Switch(value=True, id=self.ids.switch(aio_id), className="d-inline-block"),
+                        dbc.Switch(id=self.ids.switch(aio_id), **switch_props),
                         dbc.Label(className="fa fa-sun"),
                     ],
 
@@ -71,14 +73,43 @@ class ThemeSwitchAIO(html.Div):
 
     clientside_callback(
         """
-        function(theme_switch, url) {
-            console.log('URL',url);
-            const stylesheet = document.querySelector('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')        
+        function(theme_switch, url) {                    
             var themeLink = theme_switch ? url[0] : url[1];
-            stylesheet.href = themeLink
+            var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')                  
+            stylesheets[stylesheets.length - 1].href = themeLink
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),
         Input(ids.switch(MATCH), "value"),
         Input(ids.store(MATCH), "data"),
+    )
+
+    # This callback is used to do the initial load of the default light and dark
+    # stylesheets and the default icons for the toggle switch.
+    # Both the Input and the Output use dummy props.  This callback just needs to run once
+    # when the app starts.  Dash requires callbacks to have an Output
+    # even if there is nothing to update.
+    #
+    clientside_callback(
+        """       
+        function() {
+            console.log("initialize")
+            let urls = [
+                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
+                "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css",
+                "https://cdn.jsdelivr.net/npm/bootswatch@5.1.0/dist/cyborg/bootstrap.min.css"
+            ];
+            for (const url of urls) {                
+                var link = document.createElement("link");
+            
+                link.type = "text/css";
+                link.rel = "stylesheet";
+                link.href = url;
+
+                document.head.appendChild(link);
+            }
+        }
+        """,
+        Output(ids.dummy_div(MATCH), "role"),
+        Input(ids.dummy_div(MATCH), "role")
     )
