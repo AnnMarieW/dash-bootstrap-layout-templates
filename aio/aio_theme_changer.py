@@ -6,20 +6,19 @@ import uuid
 dbc_themes_url = {
     item: getattr(dbc.themes, item)
     for item in dir(dbc.themes)
-    if not item.startswith(("_", "GRID", "VAPOR", "QUARTZ", "MORPH", "ZEPHYR"))
+    if not item.startswith(("_", "GRID"))
 }
 url_dbc_themes = dict(map(reversed, dbc_themes_url.items()))
 dbc_themes_lowercase = [t.lower() for t in dbc_themes_url.keys()]
-dbc_dark_themes = ["cyborg", "darkly", "slate", "solar", "superhero"]
+dbc_dark_themes = ["cyborg", "darkly", "slate", "solar", "superhero", "vapor"]
+
+def template_from_url(url):
+    """ returns the name of the plotly template for the Bootstrap stylesheet url"""
+    return url_dbc_themes.get(url, "bootstrap").lower()
 
 
 class ThemeChangerAIO(html.Div):
     class ids:
-        radio = lambda aio_id: {
-            "component": "ThemeChangerAIO",
-            "subcomponent": "radio",
-            "aio_id": aio_id,
-        }
         button = lambda aio_id: {
             "component": "ThemeChangerAIO",
             "subcomponent": "button",
@@ -28,6 +27,11 @@ class ThemeChangerAIO(html.Div):
         offcanvas = lambda aio_id: {
             "component": "ThemeChangerAIO",
             "subcomponent": "offcanvas",
+            "aio_id": aio_id,
+        }
+        radio = lambda aio_id: {
+            "component": "ThemeChangerAIO",
+            "subcomponent": "radio",
             "aio_id": aio_id,
         }
         dummy_div = lambda aio_id: {
@@ -45,9 +49,28 @@ class ThemeChangerAIO(html.Div):
         offcanvas_props={},
         aio_id=None,
     ):
-        """
-        todo: write docstring
-        :param aio_id:
+
+        """ThemeChangerAIO is an All-in-One component  composed  of a parent `html.Div` with
+        the following components as children:
+
+        - `dbc.Button` ("`switch`") Opens the Offcanvas component for user to select a theme.
+        - `dbc.Offcanvas` ("`offcanvas`")
+        - `dbc.RadioItems` ("`radio`").  The themes are displayed as RadioItems inside the `dbc.Offcanvas` component.
+          The `value` is a url for the theme
+        - `html.Div` is used as the `Output` of the clientside callbacks.
+
+        The ThemeChangerAIO component updates the stylesheet  when the `value` of radio changes. (ie the user selects a new theme)
+
+        - param: `radio_props` A dictionary of properties passed into the dbc.RadioItems component. The default `value` is `dbc.themes.BOOTSTRAP`
+        - param: `button_props`  A dictionary of properties passed into the dbc.Button component.
+        - param: `offcanvas_props`. A dictionary of properties passed into the dbc.Offcanvas component
+        - param: `aio_id` The All-in-One component ID used to generate components's dictionary IDs.
+
+        The All-in-One component dictionary IDs are available as:
+
+        - ThemeChangerAIO.ids.radio(aio_id)
+        - ThemeChangerAIO.ids.offcanvas(aio_id)
+        - ThemeChangerAIO.ids.button(aio_id)
         """
         from dash_bootstrap_templates import load_figure_template
 
@@ -116,13 +139,15 @@ class ThemeChangerAIO(html.Div):
             return not is_open
         return is_open
 
-    # Use 2 style sheet in the app to reduce the flicker when the theme changes
-    # example:  app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.themes.CYBORG])
+
     clientside_callback(
         """
-        function(url) {            
-            var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')                  
-            stylesheets[stylesheets.length - 1].href = url           
+        function switcher(url) {
+          var stylesheets = document.querySelectorAll(
+            `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
+            link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
+          );
+          stylesheets[stylesheets.length - 1].href = url;
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),
@@ -160,99 +185,3 @@ class ThemeChangerAIO(html.Div):
         Input(ids.dummy_div(MATCH), "role")
     )
 
-
-# ----------  Slide Deck ------------------------------------------------------
-
-
-class SlideDeckAIO(html.Div):
-    # pattern matching callback ids
-    class ids:
-        pagination = lambda aio_id: {
-            "component": "SlideDeckAIO",
-            "subcomponent": "pagination",
-            "aio_id": aio_id,
-        }
-        page_content = lambda aio_id: {
-            "component": "SlideDeckAIO",
-            "subcomponent": "page_content",
-            "aio_id": aio_id,
-        }
-        store = lambda aio_id: {
-            "component": "SlideDeckAIO",
-            "subcomponent": "store",
-            "aio_id": aio_id,
-        }
-
-    ids = ids
-
-    # define properties of SlideDeckAIO
-    def __init__(
-        self, slide_deck={}, pagination_props={}, title=" ", aio_id=None,
-    ):
-        """
-        SlideDeckAIO is an All-in-One component to display page content by page number. It is composed
-        of a parent `html.Div` with a dbc.Pagination ('pagination'), html.Div for the page content (`page_content`)
-        and a dcc.Store (`store`) for the slide deck dictionary.
-
-        The pagination buttons control which page is displayed.
-
-        - slide_deck:  A dictionary with the key as the page number and the page layout as the value {page_number: page_layout}
-        - pagination_props:  A dictionary of properties passed into the dbc.Pagination component. See [](url)
-        - title - optional text or components for the SlideDeck template
-        - aio_id: The All-in-One component ID used to generate the pagination, content and store component's dictionary IDs.
-        """
-
-        # Set default props
-        if aio_id is None:
-            aio_id = str(uuid.uuid4())
-        pagination_props = pagination_props.copy()
-        if "fully_expanded" not in pagination_props:
-            pagination_props["fully_expanded"] = False
-        if "previous_next" not in pagination_props:
-            pagination_props["previous_next"] = True
-        if "active_page" not in pagination_props:
-            pagination_props["active_page"] = 1
-        if "size" not in pagination_props:
-            pagination_props["size"] = "sm"
-
-        # components used in the SlideDeckAIO layout
-        pagination_btns = dbc.Pagination(
-            id=self.ids.pagination(aio_id),
-            max_value=len(slide_deck),
-            **pagination_props,
-        )
-        slide_deck_controls = dbc.Container(
-            [
-                dbc.Row(
-                    [
-                        dbc.Col(title, className="text-white ms-2 h4"),
-                        dbc.Col(
-                            pagination_btns, width="auto", className="float-end pt-2"
-                        ),
-                    ],
-                    align="center",
-                )
-            ],
-            className="bg-primary text-white mb-4",
-            fluid=True,
-        )
-
-        # layout
-        super().__init__(
-            [
-                html.Div(slide_deck_controls),
-                html.Div(  # slide deck output
-                    slide_deck[pagination_props["active_page"]],
-                    id=self.ids.page_content(aio_id),
-                ),
-                dcc.Store(id=self.ids.store(aio_id), data=slide_deck),
-            ]
-        )
-
-    @callback(
-        Output(ids.page_content(MATCH), "children"),
-        Input(ids.pagination(MATCH), "active_page"),
-        State(ids.store(MATCH), "data"),
-    )
-    def show_page(active_page, sl_deck):
-        return sl_deck[str(active_page)]

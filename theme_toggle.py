@@ -4,7 +4,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 import layout_templates.layout as tpl
-from aio.aio_theme_switch import ThemeSwitchAIO, dbc_dark_themes, url_dbc_themes
+from aio import ThemeSwitchAIO
 import layout_templates.util as util
 
 df = px.data.gapminder()

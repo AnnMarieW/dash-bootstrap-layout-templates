@@ -2,7 +2,7 @@ from dash import Dash, html, dcc, dash_table, Input, Output, State, callback_con
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import layout_templates.layout as tpl
-from aio.aio_components import SlideDeckAIO
+from aio.aio_slide_deck import SlideDeckAIO
 
 df = px.data.tips()
 

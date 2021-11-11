@@ -5,7 +5,7 @@ from dash import html, dcc, Input, Output, callback
 import dash_bootstrap_components as dbc
 import plotly.express as px
 import layout_templates.layout as tpl
-from aio.aio_components import ThemeChangerAIO
+from aio.aio_slide_deck import ThemeChangerAIO
 
 df = px.data.tips()
 

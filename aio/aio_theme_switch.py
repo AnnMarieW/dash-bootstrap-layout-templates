@@ -7,11 +7,10 @@ import uuid
 dbc_themes_url = {
     item: getattr(dbc.themes, item)
     for item in dir(dbc.themes)
-    if not item.startswith(("_", "GRID", "VAPOR", "QUARTZ", "MORPH", "ZEPHYR"))
+    if not item.startswith(("_", "GRID"))
 }
 url_dbc_themes = dict(map(reversed, dbc_themes_url.items()))
 dbc_themes_lowercase = [t.lower() for t in dbc_themes_url.keys()]
-dbc_dark_themes = ["cyborg", "darkly", "slate", "solar", "superhero"]
 
 
 class ThemeSwitchAIO(html.Div):
@@ -36,13 +35,30 @@ class ThemeSwitchAIO(html.Div):
     def __init__(
         self,
         themes = [dbc.themes.CYBORG, dbc.themes.BOOTSTRAP],
-        icons = ["fa fa-moon", "fa fa-sun"],
+        icons = {"left" :"fa fa-moon", "right" :"fa fa-sun"},
         switch_props={},
         aio_id=None,
     ):
-        """
-        todo: write docstring
-        :param aio_id:
+        """ThemeSwitchAIO is an All-in-One component  composed  of a parent `html.Div` with
+        the following components as children:
+
+        - `dbc.Switch` ("`switch`") with icons to the left and right of the switch.
+        - `dcc.Store` ("`store`") The `themes` are stored in the `data` prop.
+        - `html.Div` is used as the `Output` of the clientside callbacks.
+
+        The ThemeSwitchAIO component updates the stylesheet when triggered by changes to the `value` of `switch` or when
+        the themes are updated in the "`store`" componenet.  The themes in the switch may be updated in a callback
+        by changing the theme urls in the "`store`" component.
+
+        - param: `themes` A list of two urls for the external stylesheets. The default is `[dbc.themes.CYBORG, dbc.themes.BOOTSTRAP]`.
+        - param: `icons`  A dict of the icons to the left and right of the switch. The default is
+          `{"left" :"fa fa-moon", "right" :"fa fa-sun"}`.
+        - param: `aio_id` The All-in-One component ID used to generate components's dictionary IDs.
+
+        The All-in-One component dictionary IDs are available as
+
+        - ThemeSwitchAIO.ids.switch(aio_id)
+        - ThemeSwitchAIO.ids.store(aio_id)
         """
         from dash_bootstrap_templates import load_figure_template
 
@@ -59,25 +75,29 @@ class ThemeSwitchAIO(html.Div):
 
         super().__init__(
             [
-                html.Div(
+                html.Span(
                     [
-                        dbc.Label(className=icons[0]),
+                        dbc.Label(className=icons["left"]),
                         dbc.Switch(id=self.ids.switch(aio_id), **switch_props),
-                        dbc.Label(className=icons[1]),
+                        dbc.Label(className=icons["right"]),
                     ],
 
+
                 ),
-                html.Div(id=self.ids.dummy_div(aio_id)),
                 dcc.Store(id=self.ids.store(aio_id), data=themes),
+                html.Div(id=self.ids.dummy_div(aio_id)),
             ]
         )
 
     clientside_callback(
         """
-        function(theme_switch, url) {                    
-            var themeLink = theme_switch ? url[0] : url[1];
-            var stylesheets = document.querySelectorAll('link[rel=stylesheet][href^="https://cdn.jsdelivr"]')                  
-            stylesheets[stylesheets.length - 1].href = themeLink
+        function toggle(theme_switch, url) {
+          var themeLink = theme_switch ? url[0] : url[1];
+          var stylesheets = document.querySelectorAll(
+            `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
+            link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
+          );
+          stylesheets[stylesheets.length - 1].href = themeLink;
         }
         """,
         Output(ids.dummy_div(MATCH), "children"),
@@ -96,9 +116,7 @@ class ThemeSwitchAIO(html.Div):
         function() {
             console.log("initialize")
             let urls = [
-                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",
-                "https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css",
-                "https://cdn.jsdelivr.net/npm/bootswatch@5.1.0/dist/cyborg/bootstrap.min.css"
+                "https://use.fontawesome.com/releases/v5.15.4/css/all.css",                
             ];
             for (const url of urls) {                
                 var link = document.createElement("link");

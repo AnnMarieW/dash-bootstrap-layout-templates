@@ -4,7 +4,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 import layout_templates.layout as tpl
-from aio.aio_components import ThemeChangerAIO, dbc_dark_themes, url_dbc_themes
+from aio import ThemeChangerAIO, url_dbc_themes
 import layout_templates.util as util
 
 from collections import OrderedDict

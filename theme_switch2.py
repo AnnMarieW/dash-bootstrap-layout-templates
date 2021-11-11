@@ -1,7 +1,7 @@
 from dash import Dash, dcc, html, Input, Output, State
 import plotly.express as px
 import dash_bootstrap_components as dbc
-from aio.aio_components import ThemeChangerAIO, url_dbc_themes, dbc_dark_themes
+from aio.aio_slide_deck import ThemeChangerAIO, url_dbc_themes, dbc_dark_themes
 import layout_templates.layout as tpl
 
 df = px.data.iris()

@@ -5,7 +5,7 @@ dash.register_page(__name__)
 from dash import dcc, html, Input, Output, callback
 import plotly.express as px
 import layout_templates.layout as tpl
-from aio.aio_components import ThemeChangerAIO, url_dbc_themes
+from aio.aio_slide_deck import ThemeChangerAIO, url_dbc_themes
 
 df = px.data.tips()
 
