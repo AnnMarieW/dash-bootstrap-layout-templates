@@ -1,10 +1,48 @@
+import dash
+import dash_bootstrap_components as dbc
+from dash import Input, Output, State
+
+from alert import alerts
+
+dbc_css = "https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates/dbc.css"
+app = dash.Dash(
+    external_stylesheets=[dbc.themes.CYBORG, dbc.icons.BOOTSTRAP, dbc_css]
+)
+
+app.layout = dbc.Container(
+    [
+        alerts,
+
+        dbc.Row(
+            [
+                dbc.Col([form, input_group], xs=12, md=6),
+                dbc.Col([input_], xs=12, md=6),
+            ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col([checklist_items], xs=12, md=6),
+                dbc.Col([radio_items], xs=12, md=6),
+            ]
+        ),
+
+    ],
+    fluid=True,
+    className="px-4 dbc",
+)
+
+if __name__ == "__main__":
+    app.run_server(debug=True)
+
+
+
 
 from dash import Dash, dcc, html, dash_table, Input, Output, State
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
 import layout_templates.layout as tpl
-from aio import ThemeChangerAIO, template_from_url
+from aio import ThemeChangerAIO, url_dbc_themes
 import layout_templates.util as util
 
 from collections import OrderedDict
@@ -37,43 +75,7 @@ table = dash_table.DataTable(
 )
 
 # ---- DCC Sampler -----------------------------------------------
-dcc_dropdown = html.Div([
-    dcc.Dropdown(
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montréal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        value='MTL'
-    )
-])
-multi_dropdown = html.Div([
-    dcc.Dropdown(
-        options=[
-            {'label': 'New York City', 'value': 'NYC'},
-            {'label': 'Montréal', 'value': 'MTL'},
-            {'label': 'San Francisco', 'value': 'SF'}
-        ],
-        multi=True,
-        value="MTL"
-    )
-])
-dcc_slider = html.Div([
-    dcc.Slider(
-        min=0,
-        max=9,
-        marks={i: 'Label {}'.format(i) for i in range(10)},
-        value=5,
-    )
-])
-range_slider  = html.Div([
-    dcc.RangeSlider(
-        marks={i: 'Label {}'.format(i) for i in range(-5, 7)},
-        min=-5,
-        max=6,
-        value=[-3, 4]
-    )
-])
+
 input = html.Div([
     dcc.Input(
         placeholder='This is a dash dcc input...',
@@ -147,28 +149,28 @@ datepicker_range =html.Div([
 ])
 dcc_tabs = html.Div([
     dcc.Tabs(id="tabs", value='tab-1', children=[
-        dcc.Tab(label='Tab one', value='tab-1'),
-        dcc.Tab(label='Tab two', value='tab-2'),
+        dcc.Tab(label='Tab one', value='tab-1', children="Tab 1 content"),
+        dcc.Tab(label='Tab two', value='tab-2', children="Tab 2 Content"),
     ]),
     html.Div(id='tabs-content')
 ])
-theme_sample = tpl.Card([html.Div(
+theme_colors = tpl.Card([html.Div(
     [
-        dbc.Button("Primary", color="primary", className="mr-1"),
-        dbc.Button("Secondary", color="secondary", className="mr-1"),
-        dbc.Button("Success", color="success", className="mr-1"),
-        dbc.Button("Warning", color="warning", className="mr-1"),
-        dbc.Button("Danger", color="danger", className="mr-1"),
-        dbc.Button("Info", color="info", className="mr-1"),
-        dbc.Button("Light", color="light", className="mr-1"),
-        dbc.Button("Dark", color="dark", className="mr-1"),
+        dbc.Button("Primary", color="primary"),
+        dbc.Button("Secondary", color="secondary"),
+        dbc.Button("Success", color="success"),
+        dbc.Button("Warning", color="warning"),
+        dbc.Button("Danger", color="danger"),
+        dbc.Button("Info", color="info"),
+        dbc.Button("Light", color="light"),
+        dbc.Button("Dark", color="dark"),
         dbc.Button("Link", color="link"),
     ]
 )], header="Bootstrap Color Sample")
 
 dcc_sampler = [
     "## This is a Sample of Dash Core Components",
-    theme_sample,
+    theme_colors,
     tpl.Card(
         [
             datepicker_single,
@@ -176,8 +178,7 @@ dcc_sampler = [
             dcc_dropdown, multi_dropdown,
             dcc_slider, range_slider,
             input, textarea,
-            dcc_tabs,
-            radioitems, dcc_checklist
+            dcc_tabs
         ]
     )
 ]
@@ -185,65 +186,6 @@ dcc_sampler = [
 
 # ----- End Dcc Sampler-----------------------------------------------------------
 
-
-
-
-# todo - change this to Dash shorthand sytnax in Dash 2.1
-slider = util.make_range_slider(df.year.unique(), id="years")
-checklist = util.make_checklist(df.continent.unique(), id="continents")
-dropdown = util.make_dropdown(["gdpPercap", "lifeExp", "pop"], id="indicator")
-#table = util.make_datatable(df, id="table")
-
-controls = html.Div(
-    [
-        tpl.Card(
-            [
-                (dropdown, "Select indicator (y-axis)"),
-                (checklist, "Select Continents"),
-                (slider, "Select Years"),
-            ],
-        ),
-        ThemeChangerAIO(aio_id="theme"),
-    ]
-)
-
-tabs = dbc.Tabs(
-    [
-        tpl.Tab([dcc.Graph(id="line-chart")], label="Graph"),
-        tpl.Tab([table], label="Table"),
-        tpl.Tab(dcc_sampler, label="dcc components", className="dbc")
-    ]
-)
-
-app.layout = tpl.Layout([
-    [dbc.Col(controls, width=4), dbc.Col(tabs, width=8)]
-], className="dbc")
-
-
-@app.callback(
-    Output("line-chart", "figure"),
-    Output("table", "data"),
-    Input("indicator", "value"),
-    Input("continents", "value"),
-    Input("years", "value"),
-    Input(ThemeChangerAIO.ids.radio("theme"), "value"),
-)
-def update_line_chart(indicator, continents, years, theme):
-    if continents == [] or indicator is None:
-        return {}, []
-
-    dff = df[df.year.between(years[0], years[1])]
-    dff = dff[dff.continent.isin(continents)]
-    data = dff.to_dict("records")
-
-    fig = px.line(dff, x="year", y=indicator, color="continent", line_group="country", template=template_from_url(theme))
-    fig.update_layout(margin=dict(l=75, r=20, t=10, b=20))
-
-    return fig, data
-
-
-if __name__ == "__main__":
-    app.run_server(debug=True)
 
 
 

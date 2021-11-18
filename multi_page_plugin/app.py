@@ -75,15 +75,55 @@
 # if __name__ == '__main__':
 #     app.run_server(debug=True)
 
+#
+#
+# import dash
+# import pages_plugin
+# from dash import Dash, html, dcc
+# import dash_bootstrap_components as dbc
+# from aio.aio_slide_deck import ThemeChangerAIO
+#
+# app = Dash(__name__, plugins=[pages_plugin], external_stylesheets=[dbc.themes.BOOTSTRAP])
+#
+# print(dash.page_registry)
+# navbar = dbc.NavbarSimple(
+#     dbc.DropdownMenu(
+#         [
+#             dbc.DropdownMenuItem(page["name"], href=page["path"])
+#             for page in dash.page_registry.values()
+#             if page["module"] != "pages.not_found_404"
+#         ],
+#         nav=True,
+#         label="More Pages",
+#     ),
+#     brand="Multi Page App Plugin Demo",
+#     color="primary",
+#     dark=True,
+#     className="mb-2",
+# )
+#
+# app.layout = dbc.Container(
+#     [navbar, pages_plugin.page_container, ThemeChangerAIO(aio_id="theme"),],
+#     className="dbc",
+#     fluid=True,
+# )
+#
+# if __name__ == "__main__":
+#     app.run_server(debug=True)
+
 
 
 import dash
-import pages_plugin
+#import pages_plugin
+import dash_labs as dl
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
-from aio.aio_slide_deck import ThemeChangerAIO
+#from aio.aio_slide_deck import ThemeChangerAIO
+from dash_bootstrap_templates import ThemeChangerAIO
 
-app = Dash(__name__, plugins=[pages_plugin], external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(__name__, plugins=[dl.plugins.pages], external_stylesheets=[dbc.themes.BOOTSTRAP])
+
+
 
 print(dash.page_registry)
 navbar = dbc.NavbarSimple(
@@ -103,7 +143,7 @@ navbar = dbc.NavbarSimple(
 )
 
 app.layout = dbc.Container(
-    [navbar, pages_plugin.page_container, ThemeChangerAIO(aio_id="theme"),],
+    [navbar, dl.plugins.page_container, ThemeChangerAIO(aio_id="theme"),],
     className="dbc",
     fluid=True,
 )
