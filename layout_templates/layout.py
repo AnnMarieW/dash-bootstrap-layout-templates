@@ -29,6 +29,8 @@ Design Objectives:
   todo - in dcc.Markdwon, un-formatted text is wrapped in a <p> with 1rm mb which does not look good in labels
         and in card headers.  How to remove this in tpl.Form and tpl.Card headers, footers and labels?
 
+       - make sure getting logo works if there is no assets folder and works in Windows.
+
 """
 from dash import html, dcc
 import dash_bootstrap_components as dbc

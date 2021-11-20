@@ -11,6 +11,12 @@ import os
 
 def get_logo():
     """ get the logo from /assets,  if there is one"""
+
+    # Todo - should work if there is no assets folder. See example in dash-labs
+    # if os.path.exists("assets"):
+    #     files_in_assets = [f for f in listdir("assets") if isfile(join("assets", f))]
+    #
+
     assets = os.listdir(os.getcwd()+'/assets/')
     split_assets = [x.split('.')[0] for x in assets]
     for i,x in enumerate(split_assets):
