@@ -22,7 +22,7 @@ datepicker_range =html.Div([
 
 
 dcc_date_picker_single = html.Div(
-    [make_subheading("dcc.DatePickerSinge", "datepickersingle"), dbc.Row(datepicker_single)],
+    [make_subheading("dcc.DatePickerSingle", "datepickersingle"), dbc.Row(datepicker_single)],
     className="mb-4",
 )
 

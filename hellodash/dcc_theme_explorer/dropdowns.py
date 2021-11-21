@@ -29,7 +29,7 @@ multi_dropdown = html.Div([
 
 
 dcc_dropdowns = html.Div(
-    [make_subheading("dcc.Dropdown", "dropdown"), dbc.Row(dropdown, multi_dropdown)],
+    [make_subheading("dcc.Dropdown", "dropdown"), dbc.Row([dropdown, multi_dropdown])],
     className="mb-4",
 )
 
