@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 
-from util import make_subheading
+from util import dcc_make_subheading
 
 
 dropdown = html.Div([
@@ -29,7 +29,7 @@ multi_dropdown = html.Div([
 
 
 dcc_dropdowns = html.Div(
-    [make_subheading("dcc.Dropdown", "dropdown"), dbc.Row([dropdown, multi_dropdown])],
+    [dcc_make_subheading("dcc.Dropdown", "dropdown"), dbc.Row([dropdown, multi_dropdown])],
     className="mb-4",
 )
 

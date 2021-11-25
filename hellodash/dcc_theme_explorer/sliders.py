@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 
-from util import make_subheading
+from util import dcc_make_subheading
 
 slider = html.Div([
     dcc.Slider(
@@ -25,12 +25,12 @@ range_slider  = html.Div([
 
 
 dcc_range_slider = html.Div(
-    [make_subheading("dcc.RangeSlider", "rangeslider"), dbc.Row(range_slider)],
+    [dcc_make_subheading("dcc.RangeSlider", "rangeslider"), dbc.Row(range_slider)],
     className="mb-4",
 )
 
 
 dcc_slider = html.Div(
-    [make_subheading("dcc.Slider", "slider"), dbc.Row(slider)],
+    [dcc_make_subheading("dcc.Slider", "slider"), dbc.Row(slider)],
     className="mb-4",
 )

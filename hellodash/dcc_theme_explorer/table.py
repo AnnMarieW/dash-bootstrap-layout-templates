@@ -5,7 +5,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 
-from util import make_subheading
+from util import dcc_make_subheading
 
 
 df = px.data.tips()
@@ -23,6 +23,6 @@ table = dash_table.DataTable(
 
 
 DataTable = html.Div(
-    [make_subheading("DataTable", "datatable"), dbc.Row(table)],
+    [dcc_make_subheading("DataTable", "datatable"), dbc.Row(table)],
     className="mb-4",
 )

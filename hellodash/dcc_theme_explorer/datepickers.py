@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 
-from util import make_subheading
+from util import dcc_make_subheading
 
 
 from datetime import date
@@ -22,11 +22,11 @@ datepicker_range =html.Div([
 
 
 dcc_date_picker_single = html.Div(
-    [make_subheading("dcc.DatePickerSingle", "datepickersingle"), dbc.Row(datepicker_single)],
-    className="mb-4",
+    [dcc_make_subheading("dcc.DatePickerSingle", "datepickersingle"), dbc.Row(datepicker_single)],
+    className="my-4",
 )
 
 dcc_date_picker_range = html.Div(
-    [make_subheading("dcc.DatePickerRange", "datepickerrange"), dbc.Row(datepicker_range)],
-    className="mb-4",
+    [dcc_make_subheading("dcc.DatePickerRange", "datepickerrange"), dbc.Row(datepicker_range)],
+    className="my-4",
 )
