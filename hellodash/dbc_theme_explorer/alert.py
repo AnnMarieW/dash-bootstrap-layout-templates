@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 alerts1 = dbc.Col(
     [
@@ -26,6 +26,6 @@ alerts2 = dbc.Col(
 )
 
 alerts = html.Div(
-    [make_subheading("Alert", "alert"), dbc.Row([alerts1, alerts2])],
+    [make_subheading("dbc.Alert", "alert"), dbc.Row([alerts1, alerts2])],
     className="mb-4",
 )

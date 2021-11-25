@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 collapse = html.Div(
     [
-        make_subheading("Collapse", "collapse"),
+        make_subheading("dbc.Collapse", "collapse"),
         html.Div(
             [
                 dbc.Button(

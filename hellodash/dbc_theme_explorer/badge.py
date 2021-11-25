@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 badge = html.Div(
     [
@@ -31,6 +31,6 @@ badge_pills = html.Div(
 )
 
 badges = html.Div(
-    [make_subheading("Badge", "badge"), badge, badge_pills],
+    [make_subheading("dbc.Badge", "badge"), badge, badge_pills],
     className="mb-4",
 )

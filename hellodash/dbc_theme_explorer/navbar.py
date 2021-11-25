@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 DBC_HOME = "https://dash-bootstrap-components.opensource.faculty.ai/"
 DBC_GITHUB = "https://github.com/facultyai/dash-bootstrap-components"
@@ -29,7 +29,7 @@ navbar_children = [
 
 navbar = html.Div(
     [
-        make_subheading("Navbar", "navbar"),
+        make_subheading("dbc.Navbar", "navbar"),
         dbc.NavbarSimple(
             children=navbar_children,
             brand="Navbar",

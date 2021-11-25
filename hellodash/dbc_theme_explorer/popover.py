@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 popover = html.Div(
     [
-        make_subheading("Popover", "popover"),
+        make_subheading("dbc.Popover", "popover"),
         dbc.Button(
             "Click to toggle popover", id="popover-target", color="danger"
         ),

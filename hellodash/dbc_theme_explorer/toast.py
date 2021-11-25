@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 toast = html.Div(
     [
-        make_subheading("Toast", "toast"),
+        make_subheading("dbc.Toast", "toast"),
         dbc.Button(
             "Open toast",
             id="auto-toast-toggle",

@@ -5,7 +5,7 @@ import plotly.express as px
 import dash_bootstrap_components as dbc
 
 
-from util import dcc_make_subheading
+from .util import dcc_make_subheading
 
 
 
@@ -36,20 +36,6 @@ tabs = html.Div([
 
 dcc_tabs = html.Div(
     [dcc_make_subheading("dcc.Tabs", "tabs"), dbc.Row(tabs)],
-    className="mb-4",
-)
-
-
-dbc_tabs = html.Div(
-    [
-        dcc_make_subheading("dbc.Tabs", "tabs"),
-        dbc.Tabs(
-            [
-                dbc.Tab(html.P(dbc_content, className="p-3"), label="Tab 1"),
-                dbc.Tab(html.P("This is tab 2", className="p-3"), label="Tab 2"),
-            ]
-        ),
-    ],
     className="mb-4",
 )
 

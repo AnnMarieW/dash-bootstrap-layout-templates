@@ -9,7 +9,7 @@ DBC_DOCS = (
 def make_subheading(label, link):
     slug = label.replace(" ", "")
 
-    heading = html.H2(
+    heading = html.H3(
         html.Span(
             [
                 label,

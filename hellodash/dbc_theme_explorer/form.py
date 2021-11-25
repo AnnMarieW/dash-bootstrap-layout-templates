@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 form = html.Div(
     [
-        make_subheading("Form", "form"),
+        make_subheading("dbc.Form", "form"),
         dbc.Form(
             [
                 html.Div(

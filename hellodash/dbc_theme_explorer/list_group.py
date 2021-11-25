@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 list_group = html.Div(
     [
-        make_subheading("ListGroup", "list_group"),
+        make_subheading("dbc.ListGroup", "list_group"),
         dbc.ListGroup(
             [
                 dbc.ListGroupItem("Item 1", color="primary", action=True),

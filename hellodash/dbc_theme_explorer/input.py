@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 input_ = html.Div(
     [
-        make_subheading("Input", "input"),
+        make_subheading("dbc.Input", "input"),
         html.Div(
             [
                 dbc.Label("Valid text input"),
@@ -25,7 +25,7 @@ input_ = html.Div(
 
 checklist_items = html.Div(
     [
-        make_subheading("Checklist", "input"),
+        make_subheading("dbc.Checklist", "input"),
         dbc.Row(
             [
                 dbc.Col(
@@ -72,7 +72,7 @@ checklist_items = html.Div(
 
 radio_items = html.Div(
     [
-        make_subheading("RadioItems", "input"),
+        make_subheading("dbc.RadioItems", "input"),
         dbc.RadioItems(
             id="gallery_radio1",
             options=[

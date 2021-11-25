@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 spinner = html.Div(
     [
-        make_subheading("Spinner", "spinner"),
+        make_subheading("dbc.Spinner", "spinner"),
         html.Div(
             [
                 dbc.Spinner(color=col)

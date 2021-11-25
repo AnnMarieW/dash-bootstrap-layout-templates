@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 table = html.Div(
     [
-        make_subheading("Table", "table"),
+        make_subheading("dbc.Table", "table"),
         dbc.Table(
             [
                 html.Thead(

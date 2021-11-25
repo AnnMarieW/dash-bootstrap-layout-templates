@@ -1,7 +1,7 @@
 import dash_bootstrap_components as dbc
 from dash import html, dcc
 
-from util import dcc_make_subheading
+from .util import dcc_make_subheading
 
 slider = html.Div([
     dcc.Slider(

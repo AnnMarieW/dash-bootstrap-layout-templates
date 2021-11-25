@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 fade = html.Div(
     [
-        make_subheading("Fade", "fade"),
+        make_subheading("dbc.Fade", "fade"),
         html.Div(
             [
                 dbc.Button(

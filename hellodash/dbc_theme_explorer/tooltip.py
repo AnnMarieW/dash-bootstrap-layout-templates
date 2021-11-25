@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 tooltip = html.Div(
     [
-        make_subheading("Tooltip", "tooltip"),
+        make_subheading("dbc.Tooltip", "tooltip"),
         html.P(
             [
                 "I wonder what ",

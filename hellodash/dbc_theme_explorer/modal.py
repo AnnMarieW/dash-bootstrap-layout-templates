@@ -1,12 +1,12 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 COOKIE = "https://todaysmama.com/.image/t_share/MTU5OTEwMzkyMDIyMTE1NzAz/cookie-monster.png"  # noqa
 modal = html.Div(
     [
-        make_subheading("Modal", "modal"),
+        make_subheading("dbc.Modal", "modal"),
         html.P(
             [
                 dbc.Button("Show the cookie monster", id="button"),

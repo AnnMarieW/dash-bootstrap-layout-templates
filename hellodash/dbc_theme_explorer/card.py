@@ -1,14 +1,14 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 cards = html.Div(
     [
-        make_subheading("Card", "card"),
-        dbc.CardGroup(
+        make_subheading("dbc.Card", "card"),
+        dbc.Row(
             [
-                dbc.Card(
+                dbc.Col(dbc.Card(
                     [
                         dbc.CardHeader("Header"),
                         dbc.CardBody(
@@ -21,8 +21,8 @@ cards = html.Div(
                             ]
                         ),
                     ]
-                ),
-                dbc.Card(
+                )),
+                dbc.Col(dbc.Card(
                     [
                         dbc.CardBody(
                             [
@@ -39,8 +39,8 @@ cards = html.Div(
                     ],
                     outline=True,
                     color="primary",
-                ),
-                dbc.Card(
+                )),
+                dbc.Col(dbc.Card(
                     [
                         dbc.CardBody(
                             [
@@ -58,7 +58,7 @@ cards = html.Div(
                     ],
                     outline=True,
                     color="dark",
-                ),
+                )),
             ]
         ),
     ],

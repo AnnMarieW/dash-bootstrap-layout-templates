@@ -1,11 +1,11 @@
 import dash_bootstrap_components as dbc
 from dash import html
 
-from util import make_subheading
+from .util import make_subheading
 
 buttons1 = dbc.Col(
     [
-        make_subheading("Button", "button"),
+        make_subheading("dbc.Button", "button"),
         html.Div(
             [
                 dbc.Button("Primary", color="primary", className="me-1 mt-1"),
