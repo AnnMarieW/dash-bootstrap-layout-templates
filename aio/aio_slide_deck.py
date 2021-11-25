@@ -1,4 +1,7 @@
 # ----------  Slide Deck ------------------------------------------------------
+from dash import html, dcc, Input, Output, State, callback, clientside_callback, MATCH
+import dash_bootstrap_components as dbc
+import uuid
 
 
 class SlideDeckAIO(html.Div):
