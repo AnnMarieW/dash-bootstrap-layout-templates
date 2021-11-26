@@ -5,7 +5,7 @@ intro_text = dcc.Markdown(
     """
 Bootstrap themes are not automatically applied to Dash Core Components and the Dash DataTable.  The 
 `dbc` class is designed to minimally style Dash components with your selected theme.  See 
-sidebar for more information on how to add the `dbc` class to your app.    
+below for more information on how to add the `dbc` class to your app.    
     """
 )
 

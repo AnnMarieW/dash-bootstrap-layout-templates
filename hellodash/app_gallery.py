@@ -21,7 +21,9 @@ def make_dcc_gallery():
             dcc_te.intro,
             dcc_te.datatable,
             dcc_te.dcc_date_picker_single, dcc_te.dcc_date_picker_range, dcc_te.dcc_dropdowns,
-            dcc_te.dcc_slider, dcc_te.dcc_range_slider, dcc_te.dcc_tabs
+            dcc_te.dcc_markdown,
+            dcc_te.dcc_slider, dcc_te.dcc_range_slider, dcc_te.dcc_tabs,
+            dcc_te.about_md
 
         ]
     )
@@ -105,6 +107,7 @@ dbc_gallery = html.Div(
         dbc_te.tabs,
         dbc_te.toast,
         dbc_te.tooltip,
+
     ]
 )
 
@@ -117,6 +120,7 @@ app.layout = dbc.Container(
                 dbc.Col([heading, dbc_gallery, make_dcc_gallery()], width=10)
             ], className="mt-4"
         ),
+
     ],
     fluid=True,
 
