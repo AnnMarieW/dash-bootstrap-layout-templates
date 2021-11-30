@@ -24,7 +24,6 @@
   color: var(--bs-body-color) !important;
 }
 
-
 .dbc .Select input {
   color: var(--bs-body-color);
 }
@@ -36,6 +35,9 @@
   color: var(--bs-body-color);
 }
 
+.dbc .Select-menu-outer {
+   outline: solid rgba(100, 100, 100, 1) 1px !important;
+}
 
 /* dropdown menu hover effect */
 .dbc .VirtualizedSelectFocusedOption {

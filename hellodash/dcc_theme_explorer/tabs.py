@@ -28,8 +28,8 @@ They are automatically styled according to the theme
 
 tabs = html.Div([
     dcc.Tabs( value='tab-1', children=[
-        dcc.Tab(label='Tab one', value='tab-1', children=html.P(dcc_content, className="p-4")),
-        dcc.Tab(label='Tab two', value='tab-2', children=html.P("Tab 2 Content",className="p-4")),
+        dcc.Tab(label='Tab one', value='tab-1', children=html.Div(dcc_content, className="p-4")),
+        dcc.Tab(label='Tab two', value='tab-2', children=html.Div("Tab 2 Content",className="p-4")),
     ]),
 ])
 

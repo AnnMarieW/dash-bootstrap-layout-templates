@@ -5,6 +5,7 @@ from dash_bootstrap_templates import ThemeChangerAIO
 
 import dcc_theme_explorer as dcc_te
 import dbc_theme_explorer as dbc_te
+from theme_explorer_multipage import layout as sample_app_layout
 
 
 #dbc_css = ("https://cdn.jsdelivr.net/gh/AnnMarieW/dash-bootstrap-templates@V1.0.2/dbc.min.css")
@@ -75,7 +76,7 @@ def make_dcc_card():
     ])
 
 
-heading = html.H1("Component Gallery", className="text-white bg-primary p-4")
+heading = html.H2("Component Gallery", className="text-white bg-primary p-2 mt-4")
 
 dbc_gallery = html.Div(
     [
@@ -116,8 +117,8 @@ app.layout = dbc.Container(
 
         dbc.Row(
             [
-                dbc.Col(ThemeChangerAIO(), width=2),
-                dbc.Col([heading, dbc_gallery, make_dcc_gallery()], width=10)
+                dbc.Col(ThemeChangerAIO(aio_id="theme"), width=2),
+                dbc.Col([sample_app_layout, heading, dbc_gallery, make_dcc_gallery()], width=10)
             ], className="mt-4"
         ),
 
