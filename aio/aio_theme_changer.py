@@ -142,10 +142,13 @@ class ThemeChangerAIO(html.Div):
           var stylesheets = document.querySelectorAll(
             `link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootswatch@5"],
             link[rel=stylesheet][href^="https://cdn.jsdelivr.net/npm/bootstrap@5"]`
-          );        
-          stylesheets.forEach(function(part, index) {         
-            part.href = url;
-          }); 
+          );            
+          stylesheets[stylesheets.length - 1].href = url          
+          setTimeout(function() {
+            for (let i = 0; i < stylesheets.length -1; i++) {
+              stylesheets[i].href = url;
+            }
+          }, 500);
         }
         """,
         Output(ids.dummy_div(MATCH), "key"),
