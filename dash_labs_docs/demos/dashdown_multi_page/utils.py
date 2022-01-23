@@ -1,4 +1,3 @@
-
 """
 Alternate method of registering pages.
 All pages registered here and imported into app.py
@@ -50,7 +49,7 @@ dash.register_page(
 #         scope={"app": app},
 #         side_by_side=True,
 #     ),
-#)
+# )
 
 # ----------------- Register Multi-page md  ---------------------------
 

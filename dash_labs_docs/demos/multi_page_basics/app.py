@@ -1,7 +1,7 @@
 from dash import Dash, html, dcc
 import dash
 import dash_labs as dl
-from  pages.util import register_paths
+from pages.util import register_paths
 
 
 app = Dash(__name__, plugins=[dl.plugins.pages])

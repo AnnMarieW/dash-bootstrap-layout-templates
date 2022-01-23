@@ -1,16 +1,15 @@
 ---
 dash.register_page(
-    __name__,
-    name="Display Options",
+    __name__,   
     order=2,
     layout=dashdown(
-        "pages/dashdown/display_options.md",
+        "pages/dashdown/code_block_options.md",
     ),
 )
 
 ---
 
-# Display options
+# Code Block Options
 The following options may be set at the file level or within a code block:
 
 - `display_code` (boolean; default True): If `True`, code blocks will be displayed. This may also be set within the code block with the comment # display-code-true or # display-code-false.

@@ -1,19 +1,8 @@
 import dash
 from dash import Dash, html
 import dash_bootstrap_components as dbc
-from dash_labs import dashdown
 import dash_labs as dl
 
-"""
-Select code highlight style:  https://highlightjs.org/static/demo/
-get url: https://cdnjs.com/libraries/highlight.js
-Add url to external_stylesheets or to assets/
-"""
-
-# light
-hljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/foundation.min.css"
-# dark
-# hljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/github-dark-dimmed.min.css"
 
 SIDEBAR_STYLE = {
     "position": "fixed",
@@ -34,14 +23,21 @@ CONTENT_STYLE = {
     "padding": "2rem 2rem",
 }
 
+
+# syntax highlighting
+light_hljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/stackoverflow-light.min.css"
+dark_hljs = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/stackoverflow-dark.min.css"
+
 app = Dash(
     __name__,
     plugins=[dl.plugins.pages],
-    external_stylesheets=[dbc.themes.SPACELAB, hljs],
+    external_stylesheets=[dbc.themes.SPACELAB, light_hljs],
     suppress_callback_exceptions=True,
 )
 
-topbar = html.H2("Dash Labs Docs & Demo", className="p-4 bg-primary text-white sticky-top")
+topbar = html.H2(
+    "Dash Labs Docs & Demo", className="p-4 bg-primary text-white sticky-top"
+)
 
 sidebar = dbc.Card(
     [
@@ -90,7 +86,6 @@ sidebar = dbc.Card(
 app.layout = html.Div(
     [topbar, sidebar, html.Div(dl.plugins.page_container, style=CONTENT_STYLE)]
 )
-
 
 
 if __name__ == "__main__":

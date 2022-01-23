@@ -24,8 +24,15 @@ warnings.formatwarning = warning_message
         (and if so, use the new path as the base path for dashdown to look in?)  Similar to /assets?
         
     - what to do if no file exists (currently prints a warning message)
+    
     - eliminated dbc dependency  (just need to replace Rows and Cols with inline css)   
-    - better way to remove app instance - AST?
+       - create a dashdown stylesheet?
+       
+    - better way to remove app instance - use the AST module?
+    
+    - any advantage to using jinja's read file function?
+    
+     - see todos in pages.py in _register_page_from_markdown_file()
        
 """
 
@@ -41,88 +48,88 @@ def dashdown(
     side_by_side=False,
     clipboard=True,
     code_first=True,
-    code_card_style=None,
-    code_card_className=None,
-    app_card_style=None,
-    app_card_className=None,
-    text_div_style=None,
-    text_div_className=None,
+    code_style=None,
+    code_className=None,
+    app_style=None,
+    app_className=None,
+    text_style=None,
+    text_className=None,
 ):
     """
-      dashdown displays content of a markdown file with the option to run and/or display code blocks.
+    dashdown displays content of a markdown file with the option to run and/or display code blocks.
 
-      - `filename`(string):
-         The path to the markdown file.
+    - `filename`(string):
+       The path to the markdown file.
 
-      - `scope`(dict):
-         Add scope to the code blocks. When using `app.callback` the `app` must be included.
-         scope=dict(app=app)
+    - `scope`(dict):
+       Add scope to the code blocks. When using `app.callback` the `app` must be included.
+       scope=dict(app=app)
 
-      - `scope_creep`(boolean; default False):
-         Allows variables from one code block to be defined in the next code block.
+    - `scope_creep`(boolean; default False):
+       Allows variables from one code block to be defined in the next code block.
 
-      - `dash_scope`(boolean; default True):
-         If True, the default scope is:
-          ```scope = dict(
-              dcc=dcc,
-              html=html,
-              Input=Input,
-              Output=Output,
-              State=State,
-              dash_table=dash_table,
-              px=px,
-              plotly=plotly,
-              dbc=dbc,
-              **(scope or {}),
-          )```
+    - `dash_scope`(boolean; default True):
+       If True, the default scope is:
+        ```scope = dict(
+            dcc=dcc,
+            html=html,
+            Input=Input,
+            Output=Output,
+            State=State,
+            dash_table=dash_table,
+            px=px,
+            plotly=plotly,
+            dbc=dbc,
+            **(scope or {}),
+        )```
 
-      - `template_variables` (dict):
-         Variable passed to the  jinja templating engine: https://jinja.palletsprojects.com/en/3.0.x/templates/
-         This is a way to display dynamic content.  For example:
-         `template_variables={‘language’: ‘english’})`
-         See the jinja docs for how to use the template variables in the markdown files.
-         `{% if language == 'english' %} Hello {% elif language == 'french' %} Bonjour {% endif %}`
+    - `template_variables` (dict):
+       Variable passed to the  jinja templating engine: https://jinja.palletsprojects.com/en/3.0.x/templates/
+       This is a way to display dynamic content.  For example:
+       `template_variables={‘language’: ‘english’})`
+       See the jinja docs for how to use the template variables in the markdown files.
+       `{% if language == 'english' %} Hello {% elif language == 'french' %} Bonjour {% endif %}`
 
-      - `display_code` (boolean; default True):
-         If `True`, code blocks will be displayed. This may also be set within the code block with the comment
-          # display-code-true or # display-code-false.
+    - `display_code` (boolean; default True):
+       If `True`, code blocks will be displayed. This may also be set within the code block with the comment
+        # display-code-true or # display-code-false.
 
-      - `exec_code` (boolean; default True):
-         If `True`, code blocks will be executed.  This may also be set within the code block with the comment
-          # exec-code-true or # exec-code-false
+    - `exec_code` (boolean; default True):
+       If `True`, code blocks will be executed.  This may also be set within the code block with the comment
+        # exec-code-true or # exec-code-false
 
-      - `side_by_side` (boolean; default False):
-        If `True`, the code block will be displayed on the left and the app output on the right on large screens.
-        If `False`, or on small screens, code block will be displayed on top and the output will be on the bottom.
-        This may also be set within the code block with the comment # side-by-side-true or # side-by-side-false.
+    - `side_by_side` (boolean; default False):
+      If `True`, the code block will be displayed on the left and the app output on the right on large screens.
+      If `False`, or on small screens, code block will be displayed on top and the output will be on the bottom.
+      This may also be set within the code block with the comment # side-by-side-true or # side-by-side-false.
 
-      - `code_first` (boolean; default True):
-        If `True`, the code block will be displayed on the top and output on the bottom (or on the left if side by side).
-        This may also be set within the code block with the comment # code-first-true or # code-first-false
+    - `code_first` (boolean; default True):
+      If `True`, the code block will be displayed on the top and output on the bottom (or on the left if side by side).
+      This may also be set within the code block with the comment # code-first-true or # code-first-false
 
-      - `clipboard` (boolean: default True);
-        If True, the copy to Clipboard icon will display in the code block.  This may also be set within the code block
-        with the comment # clipboard-true or # clipboard-false.
+    - `clipboard` (boolean: default True);
+      If True, the copy to Clipboard icon will display in the code block.  This may also be set within the code block
+      with the comment # clipboard-true or # clipboard-false.
 
-      - `code_card_style` (dict; optional):
-        The style of the code display container (Div).
-        default: {"maxHeight": 600, "overflow": "auto","margin-left": "25px"}
+    - `code_style` (dict; optional):
+      The style of the code display container (Div).
+      default: {"maxHeight": 700, "overflow": "auto"}
 
-      - `code_card_className` (string; optional):
-        The className of the code display container (Div).
+    - `code_className` (string; optional):
+      The className of the code display container (Div).
 
-      - `app_card_style` (dict; optional):
-        The style of the app output container (Div).
-        default: {"maxHeight": 600, "overflow": "auto"}
+    - `app_style` (dict; optional):
+      The style of the app output container (Div).
+      default: {"maxHeight": 700, "overflow": "auto"}
 
-      - `app_card_className` (string; optional):
-        The className of the app output container (dbc.Card).
+    - `app_className` (string; optional):
+      The className of the app output container (Div).
 
-      - `text_div_style' (dict; optional):
-        The style of the markdown text container (html.Div).
+    - `text_style` (dict; optional):
+      The style of the Narkdown text container (Div).
 
-      - `text_div_className` (string; optional):
-        The className of the markdown text container (html.Div)
+    - `text_className` (string; optional):
+      The className of the Markdown text container (Div)
 
     """
     if dash_scope:
@@ -148,28 +155,20 @@ def dashdown(
         warnings.warn(f"{error}", stacklevel=2)
         return ""
 
-    #remove frontmatter which is delimited with 3 dashes
-    split_frontmatter = re.split(
-        r"(^---[\s\S]*?\n*---)",
-        notebook
-    )
+    # remove frontmatter which is delimited with 3 dashes
+    split_frontmatter = re.split(r"(^---[\s\S]*?\n*---)", notebook)
     notebook = split_frontmatter[-1]
-
-
-
     template = Template(notebook)
-
     notebook = template.render(**(template_variables or {}))
-
 
     split_notebook = re.split(
         #   r"(```[^`]*```)",  # this one doesn't work if there are docstrings in the codeblock
-        #   r"(```[a-z]*\n[\s\S]*?\n```)",  # this one won't work if ``` is not at the start of the line and not if there is a space after ```
         r"(```[\s\S]*?\n```)",
         notebook,
     )
 
     # make a unique id for clipboard based on the markdown filename
+    # todo use UUID here?
     clipboard_id = filename.split(".")[0].replace("\\", "/").replace("/", "-")
 
     file_display_options = {
@@ -179,7 +178,6 @@ def dashdown(
         "code_first": code_first,
         "exec_code": exec_code,
     }
-   # print("start", file_display_options)
 
     reconstructed = []
     code_block = 0
@@ -188,9 +186,7 @@ def dashdown(
             code_block += 1
             app_card = ""
             code_card = ""
-
             display_options = update_display_options(file_display_options, section)
-          #  print(filename, code_block, display_options)
 
             if display_options["display_code"]:
                 if display_options["clipboard"]:
@@ -199,19 +195,15 @@ def dashdown(
                             [
                                 dcc.Markdown(
                                     section,
-                                    style={
-                                        "maxHeight": 600,
-                                        "overflow": "auto",
-                                        "margin-left": "10px",
-                                    }
-                                    if code_card_style is None
-                                    else code_card_style,
-                                    className=code_card_className,
+                                    style={"maxHeight": 700, "overflow": "auto"}
+                                    if code_style is None
+                                    else code_style,
+                                    className=code_className,
                                 ),
                                 dcc.Clipboard(
                                     target_id=f"{clipboard_id}{i}",
                                     style={
-                                        "right": 10,
+                                        "right": 15,
                                         "position": "absolute",
                                         "top": 0,
                                     },
@@ -225,14 +217,10 @@ def dashdown(
                     code_card = (
                         dcc.Markdown(
                             section,
-                            style={
-                                "maxHeight": 600,
-                                "overflow": "auto",
-                                "margin-left": "10px",
-                            }
-                            if code_card_style is None
-                            else code_card_style,
-                            className=code_card_className,
+                            style={"maxHeight": 700, "overflow": "auto"}
+                            if code_style is None
+                            else code_style,
+                            className=code_className,
                         ),
                     )
 
@@ -255,8 +243,8 @@ def dashdown(
                     app_card = _run_code(
                         code,
                         scope=code_scope,
-                        style=app_card_style,
-                        className=app_card_className,
+                        style=app_style,
+                        className=app_className,
                     )
                 except Exception as e:
                     print(
@@ -281,13 +269,13 @@ def dashdown(
                     dbc.Col(code_card, width=12, lg=lg),
                 ]
 
-            reconstructed.append(dbc.Row(code_display, style={"margin": "0px 10px"}))
+            reconstructed.append(dbc.Row(code_display))
         else:
             reconstructed.append(
                 dbc.Row(
                     dbc.Col(
                         dcc.Markdown(
-                            section, style=text_div_style, className=text_div_className
+                            section, style=text_style, className=text_className
                         )
                     )
                 )
@@ -319,7 +307,7 @@ def _run_code(code, scope=None, style=None, className=None):
         exec(code, scope)
         style = (
             {
-                "maxHeight": 600,
+                "maxHeight": 700,
                 "overflow": "auto",
                 "padding": 10,
                 "border": "1px solid rgba(100, 100, 100, 0.4)",

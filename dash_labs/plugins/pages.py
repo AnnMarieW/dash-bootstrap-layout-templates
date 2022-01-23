@@ -11,7 +11,6 @@ from textwrap import dedent
 from urllib.parse import parse_qs
 from keyword import iskeyword
 import warnings
-import re
 
 
 def warning_message(message, category, filename, lineno, line=None):
@@ -69,7 +68,7 @@ def register_page(
        e.g. based on path_template: `/asset/<asset_id` to `/asset/none`
        e.g. based on module: `pages.weekly_analytics` to `/weekly-analytics`
 
-    - `path_template`:
+    - path_template:
        Add variables to a URL by marking sections with <variable_name>. The layout function
        then receives the <variable_name> as a keyword argument.
        e.g. path_template= "/asset/<asset_id>"
@@ -287,7 +286,7 @@ def _import_layouts_from_pages(app):
         for file in files:
             page_filename = os.path.join(root, file).replace("\\", "/")
             if file.endswith(".md"):
-                _register_markdown_from_pages(page_filename, app)
+                _register_page_from_markdown_file(page_filename, app)
                 continue
             if file.startswith("_") or not file.endswith(".py"):
                 continue
@@ -301,39 +300,51 @@ def _import_layouts_from_pages(app):
                     page_module, "layout"
                 )
 
-def _register_markdown_from_pages(page_filename, app):
-    """
 
+def _register_page_from_markdown_file(page_filename, app):
+    """
+    Extracts and runs dash.register_page() from the "front matter" of a markdown file in the pages folder.
+    Front matter is defined with three dashes:
+    ---
+    dash.register_page(...)
+    ---
+
+    todo:
+        - use AST to parse dash.register_page() so that nothing else gets executed. Use the same function as the
+          one to delete the app instance in dashdown.
+        - infer the filename for dashdown(filename,...)
     """
     try:
         with open(page_filename, "r") as f:
-            notebook = f.read()
+            delimiter = "---\n"
+            first_line_delimiter = False
+            frontmatter = []
+            for line in f:
+                if not first_line_delimiter and line == delimiter:
+                    first_line_delimiter = True
+                elif first_line_delimiter and line != delimiter:
+                    frontmatter.append(line)
+                else:
+                    break
+
     except IOError as error:
         warnings.warn(f"{error}", stacklevel=2)
         return ""
 
-    # extract frontmatter which is delimited with 3 dashes
-    split_frontmatter = re.split(
-        r"(^---[\s\S]*?\n*---)",
-        notebook
-    )
-    if len(split_frontmatter) > 1:
-        frontmatter = split_frontmatter[1]
-
-        parse_dashdown = frontmatter.strip("-")
-        # todo use ast to extract register_page function
-        if "register_page" in parse_dashdown:
-            if "__name__" in parse_dashdown:
-                # infer module name:  makes it so you can do this: `dash.register_page(__name__)
+    if len(frontmatter) > 0:
+        frontmatter = "".join(frontmatter)
+        # todo: need to parse dash.register_page from frontmatter rather than just checking if it exists
+        if "register_page" in frontmatter:
+            if "__name__" in frontmatter:
+                # infer module name:  so you can do this: `dash.register_page(__name__)
                 module_name = f'"{page_filename.replace(".md", "").replace("/", ".")}"'
-                parse_dashdown = parse_dashdown.replace("__name__", module_name)
+                frontmatter = frontmatter.replace("__name__", module_name)
             try:
                 from dash_labs import dashdown
-                exec(parse_dashdown)
-            except Exception as e: print("error",e)
 
-
-
+                exec(frontmatter)
+            except Exception as e:
+                print("error", e)
 
 
 def _path_to_page(app, pathname):

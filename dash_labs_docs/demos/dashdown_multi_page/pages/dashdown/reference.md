@@ -29,12 +29,12 @@ def dashdown(
     side_by_side=False,
     clipboard=True,
     code_first=True,
-    code_card_style=None,
-    code_card_className=None,
-    app_card_style=None,
-    app_card_className=None,
-    text_div_style=None,
-    text_div_className=None,
+    code_style=None,
+    code_className=None,
+    app_style=None,
+    app_className=None,
+    text_style=None,
+    text_className=None,
 ):
 ```
     
@@ -87,23 +87,23 @@ This may also be set within the code block with the comment # code-first-true or
 If True, the copy to Clipboard icon will display in the code block.  This may also be set within the code block
 with the comment # clipboard-true or # clipboard-false.
 
-- `code_card_style` (dict; optional):
+- `code_style` (dict; optional):
 The style of the code display container (Div).
-default: {"maxHeight": 600, "overflow": "auto","margin-left": "25px"}
-
-- `code_card_className` (string; optional):
-The className of the code display container (Div).
-
-- `app_card_style` (dict; optional):
-The style of the app output container (Div).
 default: {"maxHeight": 600, "overflow": "auto"}
 
-- `app_card_className` (string; optional):
-The className of the app output container (dbc.Card).
+- `code_className` (string; optional):
+The className of the code display container (Div).
 
-- `text_div_style' (dict; optional):
-The style of the markdown text container (html.Div).
+- `app_style` (dict; optional):
+The style of the app output container (Div).
+default: {"maxHeight": 700, "overflow": "auto"}
 
-- `text_div_className` (string; optional):
-The className of the markdown text container (html.Div)
+- `app_className` (string; optional):
+The className of the app output container (Div).
+
+- `text_style` (dict; optional):
+The style of the Markdown text container (Div).
+
+- `text_className` (string; optional):
+The className of the Markdown text container (Div)
 

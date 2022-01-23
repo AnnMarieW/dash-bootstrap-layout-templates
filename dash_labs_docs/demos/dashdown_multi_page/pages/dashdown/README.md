@@ -2,7 +2,7 @@
   
 dash.register_page(
     __name__,
-    name="README.md",
+    name="Deploy a README.md",
     order=3,
     layout=dashdown(
         "pages/dashdown/README.md",
